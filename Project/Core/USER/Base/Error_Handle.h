@@ -16,7 +16,7 @@ extern "C"
 
 #ifdef __cplusplus
 /*在此处进行宏定义：         begin*/	
-#define a 4;
+#define a 66;
 /*宏定义end*/	
 
 
