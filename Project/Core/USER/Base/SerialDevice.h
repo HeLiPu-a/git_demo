@@ -33,75 +33,38 @@ extern "C"
 
 
 /*在此处进行类和结构体的定义：begin*/
-	
-typedef struct _Package
-{
-    uint8_t  Head_0;
-    uint8_t  Head_1;    
-	  uint8_t  End_0;
-    uint8_t  End_1;
-    uint8_t  frame_id;
-    uint8_t  length;
-    uint8_t  rxIndex=0;
 
-    union _PK_Data
-    {
-        uint8_t   u8_PK_data   [Max_Package_Length];
-        int32_t   int32_PK_data[Max_Package_Length/4];
-        int16_t   int16_PK_data[Max_Package_Length/2];
-        uint32_t  u32_PK_data  [Max_Package_Length/4];
-        uint16_t  u16_PK_data  [Max_Package_Length/2];
-        float     float_PK_data[Max_Package_Length/4];
-    }PK_Data;//同个实例的包只有可能接收一种类型的数据，所以用union成员是共享一块空间，节省空间，同时易于类型转换
-    union _check_code
-    {
-        uint16_t crc_code;
-        uint8_t  crc_buff[2]; // CRC 校验的字节形式
-    }check_code;   //虽然不知道是要干什么的，但是先复制过来
-    uint16_t crc_calculated = 0;
 
-}Package;
 
 class SerialDevice
 {
-    public:
+   public:
 
-    uint8_t rxBuffer_[RX_BUFFER_SIZE];
-    UART_HandleTypeDef *huart_; // 保存 UART 句柄
+   uint8_t rxBuffer_[RX_BUFFER_SIZE];
+   UART_HandleTypeDef *huart_; // 保存 UART 句柄
     
-    bool init_status = false;
-    bool enableCrcCheck_; // 是否启用 CRC 校验
+   bool init_status = false;
+   bool enableCrcCheck_; // 是否启用 CRC 校验
 
-    Package rx_frame_mat;
-    uint8_t receive_ok_flag = 0;
-		uint8_t RxPK_ok_flag = 0;
-    static SerialDevice *instances_[MAX_INSTANCES]; // 保存所有实例(最多八个)
-    static int instanceCount_;                      // 记录保存实例个数
+    
+   uint8_t receive_ok_flag = 0;//接收完成的标志
+	 uint8_t RxPK_ok_flag = 0;   //接收时的帧格式（包）设置完成的标志
+   static SerialDevice *instances_[MAX_INSTANCES]; // 保存所有实例(最多八个)
+   static int instanceCount_;                      // 记录保存实例个数
 	
-    enum rxState
-    {
-        WAITING_FOR_HEADER_0,
-        WAITING_FOR_HEADER_1,
-        WAITING_FOR_ID,
-        WAITING_FOR_LENGTH,
-        WAITING_FOR_DATA,
-        WAITING_FOR_CRC_0,
-        WAITING_FOR_CRC_1,
-        WAITING_FOR_END_0,
-        WAITING_FOR_END_1
-    } state_;
-
+    //构造函数，将创建出来的实例和串口进行绑定
     SerialDevice(UART_HandleTypeDef *huartx,bool enableCrcCheck);   
-    void SetRxPackage_identity(Package PKD);
     bool SendByte   (uint8_t  data);
     bool SendString (char    *data);
     bool SendArray  (uint8_t *data, uint8_t data_len);
     bool SendFloat  (float    data);
     bool SendInt32  (int32_t  data);
     bool SendInt16  (int16_t  data);
-    bool SendPackage(Package    *package);
+    
     void startUartReceiveIT();
-    virtual void handleReceiveData(uint8_t byte) = 0;//串口接收数据处理函数
+    virtual void handleReceiveData(uint8_t byte) = 0;//串口接收数据处理函数,需要在子类中重新定义
+
+    
 
     //static void registerInstance(SerialDevice *instance);
 };
