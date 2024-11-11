@@ -37,7 +37,7 @@ enum Can_id
 class CanDevice
 {
 public:
-    CAN_HandleTypeDef *hcan_ = nullptr;  // CAN 句柄
+    CAN_HandleTypeDef *hcan = nullptr;  // CAN 句柄
     uint8_t can_id = 0;
     static CanDevice *Can1_Instances1[MAX_INSTANCES+1]; // 保存can1和can2上的所有实例
     static CanDevice *Can1_Instances2[MAX_INSTANCES+1];
