@@ -60,7 +60,7 @@ void CanDevice::CAN2_Filter_Init(){
 
     CAN_FilterTypeDef  sFilterConfig;
     sFilterConfig.FilterActivation = ENABLE;
-    sFilterConfig.FilterMode = FILTER_MODE_IDMASK;
+    sFilterConfig.FilterMode = CAN_FILTERMODE_IDMASK;
     sFilterConfig.FilterScale = CAN_FILTERSCALE_32BIT;
     sFilterConfig.FilterFIFOAssignment = CAN_RX_FIFO0;
     sFilterConfig.FilterBank = 14;
@@ -92,7 +92,7 @@ CanManager::CanManager(){
     TxHeader1.RTR = CAN_RTR_DATA;
     TxHeader1.IDE = CAN_ID_STD;
     TxHeader1.DLC = 8;
-    TxHeader.TransmitGlobalTime = DISABLE;
+    TxHeader1.TransmitGlobalTime = DISABLE;
 
     TxHeader2.StdId = 0x1FF;
     TxHeader2.ExtId = 0x00;
@@ -169,13 +169,13 @@ extern "C" void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan){
 
         for(uint8_t i=1; i<MAX_INSTANCES+1; i++){
             if(CanDevice::Can1_Instances1[i]->can_id == RxHeader1.StdId - 0x200){
-                CanDevice::Can1_Instances1[i]->can_update(CanManager::RxData1);
+                CanDevice::Can1_Instances1[i]->Can_update(CanManager::RxData1);
             }
         }
 
         for(uint8_t i=1; i<MAX_INSTANCES+1; i++){
             if(CanDevice::Can1_Instances2[i]->can_id == RxHeader1.StdId - 0x200){
-                CanDevice::Can1_Instances2[i]->can_update(CanManager::RxData1);
+                CanDevice::Can1_Instances2[i]->Can_update(CanManager::RxData1);
             }
         }
 
@@ -186,13 +186,13 @@ extern "C" void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan){
 
         for(uint8_t i=1; i<MAX_INSTANCES+1; i++){
             if(CanDevice::Can2_Instances1[i]->can_id == RxHeader2.StdId - 0x200){
-                CanDevice::Can2_Instances1[i]->can_update(CanManager::RxData2);
+                CanDevice::Can2_Instances1[i]->Can_update(CanManager::RxData2);
             }
         }
 
         for(uint8_t i=1; i<MAX_INSTANCES+1; i++){
             if(CanDevice::Can2_Instances2[i]->can_id == RxHeader2.StdId - 0x200){
-                CanDevice::Can2_Instances2[i]->can_update(CanManager::RxData2);
+                CanDevice::Can2_Instances2[i]->Can_update(CanManager::RxData2);
             }
         }
     }    
