@@ -55,11 +55,7 @@ void MX_CAN1_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN CAN1_Init 2 */
-  if (HAL_CAN_Start(&hcan1) != HAL_OK)
-    {
-        /* Start Error */
-        Error_Handler();
-    }
+  
   /* USER CODE END CAN1_Init 2 */
 
 }
@@ -91,11 +87,7 @@ void MX_CAN2_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN CAN2_Init 2 */
-  if (HAL_CAN_Start(&hcan2) != HAL_OK)
-    {
-        /* Start Error */
-        Error_Handler();
-    }
+ 
   /* USER CODE END CAN2_Init 2 */
 
 }
@@ -135,11 +127,7 @@ void HAL_CAN_MspInit(CAN_HandleTypeDef* canHandle)
     HAL_NVIC_SetPriority(CAN1_RX1_IRQn, 5, 0);
     HAL_NVIC_EnableIRQ(CAN1_RX1_IRQn);
   /* USER CODE BEGIN CAN1_MspInit 1 */
-    if (HAL_CAN_ActivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING) != HAL_OK)
-    {
-        /* Start Error */
-        Error_Handler();
-    }
+    
   /* USER CODE END CAN1_MspInit 1 */
   }
   else if(canHandle->Instance==CAN2)
@@ -172,11 +160,7 @@ void HAL_CAN_MspInit(CAN_HandleTypeDef* canHandle)
     HAL_NVIC_SetPriority(CAN2_RX1_IRQn, 5, 0);
     HAL_NVIC_EnableIRQ(CAN2_RX1_IRQn);
   /* USER CODE BEGIN CAN2_MspInit 1 */
-  if (HAL_CAN_ActivateNotification(&hcan2, CAN_IT_RX_FIFO0_MSG_PENDING) != HAL_OK)
-    {
-        /* Start Error */
-        Error_Handler();
-    }
+  
   /* USER CODE END CAN2_MspInit 1 */
   }
 }
