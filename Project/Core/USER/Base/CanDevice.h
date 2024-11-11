@@ -36,14 +36,18 @@ enum Can_id
 class CanDevice
 {
 public:
-    CAN_HandleTypeDef *hcan_;  // CAN 句柄
+    CAN_HandleTypeDef *hcan_ = nullptr;  // CAN 句柄
     uint8_t can_id = 0;
-    static CanDevice *Can1_Instances[MAX_INSTANCES]; // 保存can1和can2上的所有实例
-    static CanDevice *Can2_Instances[MAX_INSTANCES];
-    uint8_t Can1_instance_index = 0; // 实例索引
-    uint8_t Can2_instance_index = 0;
+    static CanDevice *Can1_Instances1[MAX_INSTANCES+1]; // 保存can1和can2上的所有实例
+    static CanDevice *Can1_Instances2[MAX_INSTANCES+1];
+    static CanDevice *Can2_Instances1[MAX_INSTANCES+1];
+    static CanDevice *Can2_Instances2[MAX_INSTANCES+1];
+    uint8_t Can1_instance_index1 = 0; // 实例索引
+    uint8_t Can1_instance_index2 = 0;
+    uint8_t Can2_instance_index1 = 0;
+    uint8_t Can2_instance_index2 = 0;
 
-    virtual int16_t motor_process(); // 给m3508用的接口，其他电机不要管
+    virtual int16_t motor_process() = 0; // 给m3508用的接口，其他电机不要管
     virtual void Can_update(uint8_t can_RxData[8]) = 0;
     void CAN1_Filter_Init(void);
     void CAN2_Filter_Init(void);
