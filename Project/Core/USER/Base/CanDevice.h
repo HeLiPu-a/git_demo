@@ -10,6 +10,7 @@ extern "C"
 #include "stm32f4xx_hal.h"
 #include "can.h"
 #include <stdint.h>
+#include "TaskManager.h"
 /*引用外部文件end*/	
 
 #ifdef __cplusplus

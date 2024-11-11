@@ -630,6 +630,16 @@
               <FileType>5</FileType>
               <FilePath>..\Core\USER\Base\TaskManager.h</FilePath>
             </File>
+            <File>
+              <FileName>CanDevice.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Core\USER\Base\CanDevice.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>CanDevice.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Core\USER\Base\CanDevice.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
