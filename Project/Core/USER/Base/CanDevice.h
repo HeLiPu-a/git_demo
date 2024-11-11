@@ -64,7 +64,6 @@ private:
     uint8_t send_buf2[8] = {0};
     uint32_t msg_box1 = 0;
     uint32_t msg_box2 = 0;
-    int8_t error_flag = 0;
 
 public:
     void process_data();

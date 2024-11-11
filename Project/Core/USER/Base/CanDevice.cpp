@@ -57,7 +57,7 @@ void CanDevice::CAN1_Filter_Init(){
 }
 
 void CanDevice::CAN2_Filter_Init(){
-    
+
     CAN_FilterTypeDef  sFilterConfig;
     sFilterConfig.FilterActivation = ENABLE;
     sFilterConfig.FilterMode = FILTER_MODE_IDMASK;
@@ -114,7 +114,7 @@ void CanManager::process_data(){
     }
     if (HAL_CAN_AddTxMessage(&hcan1, &TxHeader1, send_buf1, &msg_box1) == HAL_ERROR)
     {
-        error_flag = 1;
+        Error_Handler();
         // Failed to add message to the transmit mailbox
     }
 
@@ -128,7 +128,7 @@ void CanManager::process_data(){
     }
     if (HAL_CAN_AddTxMessage(&hcan1, &TxHeader2, send_buf1, &msg_box1) == HAL_ERROR)
     {
-        error_flag = 1;
+        Error_Handler();
         // Failed to add message to the transmit mailbox
     }
 
@@ -142,7 +142,7 @@ void CanManager::process_data(){
     }
     if (HAL_CAN_AddTxMessage(&hcan2, &TxHeader1, send_buf2, &msg_box2) == HAL_ERROR)
     {
-        error_flag = 1;
+        Error_Handler();
         // Failed to add message to the transmit mailbox
     }
 
@@ -156,7 +156,7 @@ void CanManager::process_data(){
     }
     if (HAL_CAN_AddTxMessage(&hcan2, &TxHeader2, send_buf2, &msg_box2) == HAL_ERROR)
     {
-        error_flag = 1;
+        Error_Handler();
         // Failed to add message to the transmit mailbox
     }
 }
