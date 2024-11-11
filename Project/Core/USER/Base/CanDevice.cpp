@@ -57,17 +57,18 @@ void CanDevice::CAN1_Filter_Init(){
 }
 
 void CanDevice::CAN2_Filter_Init(){
+    
     CAN_FilterTypeDef  sFilterConfig;
     sFilterConfig.FilterActivation = ENABLE;
-    sFilterConfig.FilterBank = 14;
+    sFilterConfig.FilterMode = FILTER_MODE_IDMASK;
+    sFilterConfig.FilterScale = CAN_FILTERSCALE_32BIT;
     sFilterConfig.FilterFIFOAssignment = CAN_RX_FIFO0;
+    sFilterConfig.FilterBank = 14;
     sFilterConfig.FilterIdHigh = 0x00;
     sFilterConfig.FilterIdLow = 0x00;
     sFilterConfig.FilterMaskIdHigh = 0x00;
     sFilterConfig.FilterMaskIdLow = 0x00;
-    sFilterConfig.FilterMode = FILTER_MODE_IDMASK;
-    sFilterConfig.FilterScale = CAN_FILTERSCALE_32BIT;
-
+    
     if(HAL_CAN_ConfigFilter(hcan2, &sFilterConfig)!= HAL_OK){
         Error_Handler();
     }
