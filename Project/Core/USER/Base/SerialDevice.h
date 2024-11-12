@@ -44,16 +44,14 @@ class SerialDevice
    UART_HandleTypeDef *huart_; // 保存 UART 句柄
     
    bool init_status = false;
-   bool enableCrcCheck_; // 是否启用 CRC 校验
-
-    
+  
    uint8_t receive_ok_flag = 0;//接收完成的标志
 	 uint8_t RxPK_ok_flag = 0;   //接收时的帧格式（包）设置完成的标志
    static SerialDevice *instances_[MAX_INSTANCES]; // 保存所有实例(最多八个)
    static int instanceCount_;                      // 记录保存实例个数
 	
     //构造函数，将创建出来的实例和串口进行绑定
-    SerialDevice(UART_HandleTypeDef *huartx,bool enableCrcCheck);   
+    SerialDevice(UART_HandleTypeDef *huartx);   
     bool SendByte   (uint8_t  data);
     bool SendString (char    *data);
     bool SendArray  (uint8_t *data, uint8_t data_len);

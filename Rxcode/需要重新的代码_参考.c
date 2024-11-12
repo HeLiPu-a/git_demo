@@ -91,7 +91,7 @@ Package rx_frame_mat;
     case WAITING_FOR_HEADER_0:
         if (byte == rx_frame_mat.Head_0)
         {
-						rx_frame_mat.Head_0 = byte; // ¥Ê¥¢“ª∫≈÷°Õ∑
+			rx_frame_mat.Head_0 = byte; // ¥Ê¥¢“ª∫≈÷°Õ∑
             state_ = WAITING_FOR_HEADER_1;
             
         }

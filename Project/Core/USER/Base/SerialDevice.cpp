@@ -2,9 +2,7 @@
 //初始化静态成员
 SerialDevice* SerialDevice::instances_[MAX_INSTANCES]={nullptr}; 
 int SerialDevice::instanceCount_=0;    
-SerialDevice::SerialDevice(UART_HandleTypeDef *huartx,
-                           bool enableCrcCheck)
-                           :enableCrcCheck_(enableCrcCheck)
+SerialDevice::SerialDevice(UART_HandleTypeDef *huartx)                         
 {
     if(instanceCount_>MAX_INSTANCES)
     {
@@ -24,8 +22,6 @@ SerialDevice::SerialDevice(UART_HandleTypeDef *huartx,
     instanceCount_++;
     init_status = true;
 }
-
-
 
 bool SerialDevice::SendByte(uint8_t data)
 {
@@ -139,14 +135,11 @@ extern "C" void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 		if(SerialDevice::instances_[i]->huart_ == huart)
 		{	 
 			 rxByte = SerialDevice::instances_[i]->rxBuffer_[0]; 
-             //abc
-			// SerialDevice::instances_[i]->handleReceiveData(rxByte);
+             
              SerialDevice::instances_[i]->handleReceiveData(rxByte);
-       HAL_UART_Receive_IT(SerialDevice::instances_[i]->huart_, 
+             HAL_UART_Receive_IT(SerialDevice::instances_[i]->huart_, 
                            SerialDevice::instances_[i]->rxBuffer_,
 						   RX_BUFFER_SIZE);
-
-
 		}
 	}
     // // 获取 UART 接收的字节
