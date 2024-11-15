@@ -41,7 +41,8 @@ public:
     static uint8_t RxData2[8];  //存储CAN2接收到的数据
     
     virtual void Can_SendData();  //CAN发送报文函数
-    virtual void Can_update(uint8_t can_RxData[8],CAN_RxHeaderTypeDef* RxHeader);  //用于更新c6020电调上传的数据，其他设备有类似操作也可以重写该函数
+    //用于更新c6020电调上传的数据，其他设备有类似操作也可以重写该函数
+    virtual void Can_update(uint8_t can_RxData[8],CAN_RxHeaderTypeDef* RxHeader);  
     static void CAN1_Filter_Init(void);  //can过滤器配置函数
     static void CAN2_Filter_Init(void);  //默认接收所有can数据帧，使用32位过滤器掩码模式
 	static void Can_Init();  //初始化过滤器，整个工程只需要调用一次即可

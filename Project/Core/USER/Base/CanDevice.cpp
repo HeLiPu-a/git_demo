@@ -15,8 +15,8 @@ CanDevice::CanDevice(CAN_HandleTypeDef *hcan_, uint32_t can_id_):hcan(hcan_), ca
 			    if(Can1_Instances[i]->can_id == can_id_ || Can1_Instances[i] == nullptr){
 					break;
 				}
-			}
-			if(i == CanDevice::Can1_Instances_Index){    //遍历完如果i等于CanDevice::Can1_Instances_Index，则说明没有找到相同的实例，则存入数组
+			} //遍历完如果i等于CanDevice::Can1_Instances_Index，则说明没有找到相同的实例，则存入数组
+			if(i == CanDevice::Can1_Instances_Index){   
 				Can1_Instances[Can1_Instances_Index] = this;
 				Can1_Instances_Index++;
 			}
@@ -28,8 +28,8 @@ CanDevice::CanDevice(CAN_HandleTypeDef *hcan_, uint32_t can_id_):hcan(hcan_), ca
 			    if(Can2_Instances[i]->can_id == can_id_ || Can2_Instances[i] == nullptr){
 					break;
 				}
-			}
-			if(i == CanDevice::Can2_Instances_Index){    //遍历完如果i等于CanDevice::Can2_Instances_Index，则说明没有找到相同的实例，则存入数组
+			}//遍历完如果i等于CanDevice::Can2_Instances_Index，则说明没有找到相同的实例，则存入数组
+			if(i == CanDevice::Can2_Instances_Index){    
 				Can2_Instances[Can2_Instances_Index] = this;
 				Can2_Instances_Index++;
 			}
@@ -107,8 +107,8 @@ extern "C" void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan){
         }
         for(uint8_t i = 0; i < CanDevice::Can1_Instances_Index; i++){
             if(CanDevice::Can1_Instances[i] != nullptr){
-                CanDevice::Can1_Instances[i]->Can_update(CanDevice::RxData1, &RxHeader1);    //调用所有实例中的Can_update函数，如何识别是否是该实例所需的报文，由子类实现，比如判断stdid等
-            }
+                CanDevice::Can1_Instances[i]->Can_update(CanDevice::RxData1, &RxHeader1);    
+            }//调用所有实例中的Can_update函数，如何识别是否是该实例所需的报文，由子类实现，比如判断stdid等
         }
     }else if(hcan == &hcan2){
         CAN_RxHeaderTypeDef RxHeader2;
