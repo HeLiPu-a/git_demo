@@ -60,7 +60,7 @@ class SerialDevice
     bool SendInt16  (int16_t  data);
     
     void startUartReceiveIT();
-    virtual void handleReceiveData(uint8_t byte) = 0;//串口接收数据处理函数,需要在子类中重新定义
+    virtual void handleReceiveData(uint8_t byte);//串口接收数据处理函数,可以在子类中根据对应模块的通信协议来实现具体逻辑
 
     
 

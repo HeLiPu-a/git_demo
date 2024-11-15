@@ -154,6 +154,11 @@ extern "C" void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
     // }
 }
 
+//该函数为虚函数，可以在子类中重新定义实现流程，也可以不实现（根据需求来）
+void SerialDevice::handleReceiveData(uint8_t byte)
+{
+	;
+}
 
 // CRC16 查表
 static const uint16_t CRC16Table[256] = {
