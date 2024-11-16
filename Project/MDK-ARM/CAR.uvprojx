@@ -81,7 +81,7 @@
           </BeforeMake>
           <AfterMake>
             <RunUserProg1>0</RunUserProg1>
-            <RunUserProg2>1</RunUserProg2>
+            <RunUserProg2>0</RunUserProg2>
             <UserProg1Name></UserProg1Name>
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F407xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../Core/USER/Base</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../Core/USER/Base;..\Core\USER\Calculation;..\Core\USER\Hardware</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -633,6 +633,36 @@
               <FileName>TaskManager.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\Core\USER\Base\TaskManager.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Hardware</GroupName>
+          <Files>
+            <File>
+              <FileName>xbox_hid.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Core\USER\Hardware\xbox_hid.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>action.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Core\USER\Hardware\action.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Calculation</GroupName>
+          <Files>
+            <File>
+              <FileName>chasis_caculation.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Core\USER\Calculation\chasis_caculation.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>pid.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Core\USER\Calculation\pid.cpp</FilePath>
             </File>
           </Files>
         </Group>

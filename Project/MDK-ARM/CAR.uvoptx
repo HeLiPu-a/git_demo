@@ -235,7 +235,7 @@
 
   <Group>
     <GroupName>Application/User/Core</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -699,7 +699,7 @@
 
   <Group>
     <GroupName>USER</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -796,6 +796,70 @@
       <bDave2>0</bDave2>
       <PathWithFileName>..\Core\USER\Base\TaskManager.h</PathWithFileName>
       <FilenameWithoutPath>TaskManager.h</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+  </Group>
+
+  <Group>
+    <GroupName>Hardware</GroupName>
+    <tvExp>1</tvExp>
+    <tvExpOptDlg>0</tvExpOptDlg>
+    <cbSel>0</cbSel>
+    <RteFlg>0</RteFlg>
+    <File>
+      <GroupNumber>7</GroupNumber>
+      <FileNumber>46</FileNumber>
+      <FileType>8</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\Core\USER\Hardware\xbox_hid.cpp</PathWithFileName>
+      <FilenameWithoutPath>xbox_hid.cpp</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>7</GroupNumber>
+      <FileNumber>47</FileNumber>
+      <FileType>8</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\Core\USER\Hardware\action.cpp</PathWithFileName>
+      <FilenameWithoutPath>action.cpp</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+  </Group>
+
+  <Group>
+    <GroupName>Calculation</GroupName>
+    <tvExp>1</tvExp>
+    <tvExpOptDlg>0</tvExpOptDlg>
+    <cbSel>0</cbSel>
+    <RteFlg>0</RteFlg>
+    <File>
+      <GroupNumber>8</GroupNumber>
+      <FileNumber>48</FileNumber>
+      <FileType>8</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\Core\USER\Calculation\chasis_caculation.cpp</PathWithFileName>
+      <FilenameWithoutPath>chasis_caculation.cpp</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>8</GroupNumber>
+      <FileNumber>49</FileNumber>
+      <FileType>8</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\Core\USER\Calculation\pid.cpp</PathWithFileName>
+      <FilenameWithoutPath>pid.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

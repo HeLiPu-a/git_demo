@@ -40,6 +40,10 @@
 "car\serialdevice.o"
 "car\start.o"
 "car\taskmanager.o"
+"car\xbox_hid.o"
+"car\action.o"
+"car\chasis_caculation.o"
+"car\pid.o"
 --strict --scatter "CAR\CAR.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
