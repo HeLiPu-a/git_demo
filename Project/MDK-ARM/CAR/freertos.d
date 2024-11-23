@@ -17,10 +17,10 @@ car/freertos.o: ..\Core\Src\freertos.c \
   ..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h \
   ..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f407xx.h \
   ..\Drivers\CMSIS\Include\core_cm4.h \
-  E:\Robot_Project\MY\CAR\Project\Drivers\CMSIS\Include\cmsis_version.h \
-  E:\Robot_Project\MY\CAR\Project\Drivers\CMSIS\Include\cmsis_compiler.h \
-  E:\Robot_Project\MY\CAR\Project\Drivers\CMSIS\Include\cmsis_armclang.h \
-  E:\Robot_Project\MY\CAR\Project\Drivers\CMSIS\Include\mpu_armv7.h \
+  E:\Robot_Project\YunHao\git_demo\Project\Drivers\CMSIS\Include\cmsis_version.h \
+  E:\Robot_Project\YunHao\git_demo\Project\Drivers\CMSIS\Include\cmsis_compiler.h \
+  E:\Robot_Project\YunHao\git_demo\Project\Drivers\CMSIS\Include\cmsis_armclang.h \
+  E:\Robot_Project\YunHao\git_demo\Project\Drivers\CMSIS\Include\mpu_armv7.h \
   ..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy\stm32_hal_legacy.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc_ex.h \
@@ -44,4 +44,6 @@ car/freertos.o: ..\Core\Src\freertos.c \
   ..\Core\USER\Base\Start.h ..\Core\USER\Base\SerialDevice.h \
   ..\Core\Inc\usart.h D:\keil_new\core\ARM\ARMCLANG\include\stdbool.h \
   D:\keil_new\core\ARM\ARMCLANG\include\string.h \
-  ..\Core\USER\Base\TaskManager.h ..\Core\USER\Base\Error_Handle.h
+  ..\Core\USER\Base\TaskManager.h ..\Core\USER\Base\Error_Handle.h \
+  ..\Core\USER\Hardware\M3508.h ..\Core\USER\Base\CanDevice.h \
+  ..\Core\Inc\can.h ..\Core\USER\Hardware\VOFA.h

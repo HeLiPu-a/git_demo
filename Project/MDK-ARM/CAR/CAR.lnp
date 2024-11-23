@@ -40,6 +40,9 @@
 "car\serialdevice.o"
 "car\start.o"
 "car\taskmanager.o"
+"car\candevice.o"
+"car\m3508.o"
+"car\vofa.o"
 --strict --scatter "CAR\CAR.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

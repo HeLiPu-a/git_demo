@@ -51,7 +51,7 @@
 osThreadId_t defaultTaskHandle;
 const osThreadAttr_t defaultTask_attributes = {
   .name = "defaultTask",
-  .stack_size = 128 *4,
+  .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityNormal,
 };
 
@@ -120,7 +120,7 @@ void StartDefaultTask(void *argument)
   for(;;)
   {
 		Start_tasks();
-    osDelay(500);
+    osDelay(10);
   }
   /* USER CODE END StartDefaultTask */
 }

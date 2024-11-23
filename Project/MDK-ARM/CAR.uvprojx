@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F407xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../Core/USER/Base</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../Core/USER/Base;../Core/USER/Hardware</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -633,6 +633,36 @@
               <FileName>TaskManager.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\Core\USER\Base\TaskManager.h</FilePath>
+            </File>
+            <File>
+              <FileName>CanDevice.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Core\USER\Base\CanDevice.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>CanDevice.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Core\USER\Base\CanDevice.h</FilePath>
+            </File>
+            <File>
+              <FileName>M3508.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Core\USER\Hardware\M3508.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>M3508.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Core\USER\Hardware\M3508.h</FilePath>
+            </File>
+            <File>
+              <FileName>VOFA.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Core\USER\Hardware\VOFA.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>VOFA.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Core\USER\Hardware\VOFA.h</FilePath>
             </File>
           </Files>
         </Group>

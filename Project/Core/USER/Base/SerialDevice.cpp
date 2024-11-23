@@ -2,7 +2,7 @@
 //初始化静态成员
 SerialDevice* SerialDevice::instances_[MAX_INSTANCES]={nullptr}; 
 int SerialDevice::instanceCount_=0;    
-SerialDevice::SerialDevice(UART_HandleTypeDef *huartx)                         
+SerialDevice::SerialDevice(UART_HandleTypeDef *huartx)                   
 {
     if(instanceCount_>MAX_INSTANCES)
     {
@@ -135,23 +135,12 @@ extern "C" void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 		if(SerialDevice::instances_[i]->huart_ == huart)
 		{	 
 			 rxByte = SerialDevice::instances_[i]->rxBuffer_[0]; 
-             
-             SerialDevice::instances_[i]->handleReceiveData(rxByte);
-             HAL_UART_Receive_IT(SerialDevice::instances_[i]->huart_, 
+       SerialDevice::instances_[i]->handleReceiveData(rxByte);
+       HAL_UART_Receive_IT(SerialDevice::instances_[i]->huart_, 
                            SerialDevice::instances_[i]->rxBuffer_,
-						   RX_BUFFER_SIZE);
+													 RX_BUFFER_SIZE);
 		}
 	}
-    // // 获取 UART 接收的字节
-    // for (int i = 0; i < SerialDevice::instanceCount_; i++)
-    // {
-    //     if (SerialDevice::instances_[i]->huart_ == huart)
-    //     {
-    //         rxByte = SerialDevice::instances_[i]->rxBuffer_[0]; // 读取接收缓冲区中的字
-    //         SerialDevice::instances_[i]->handleReceiveData(rxByte);
-    //         HAL_UART_Receive_IT(huart, SerialDevice::instances_[i]->rxBuffer_, RX_BUFFER_SIZE);
-    //     }
-    // }
 }
 
 //该函数为虚函数，可以在子类中重新定义实现流程，也可以不实现（根据需求来）

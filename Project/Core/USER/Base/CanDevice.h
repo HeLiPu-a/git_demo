@@ -34,9 +34,9 @@ public:
     uint32_t msg_box2 = 0;  //保存can2下发报文使用的邮箱
     
     static CanDevice *Can1_Instances[CAN_MAX_INSTANCES];  // 保存can1上的所有实例
-	static uint8_t Can1_Instances_Index;  // can1实例的数量
+	  static uint8_t Can1_Instances_Index;  // can1实例的数量
     static CanDevice *Can2_Instances[CAN_MAX_INSTANCES];  // 保存can2上的所有实例
-	static uint8_t Can2_Instances_Index;  // can2实例的数量
+	  static uint8_t Can2_Instances_Index;  // can2实例的数量
     static uint8_t RxData1[8];  //存储CAN1接收到的数据
     static uint8_t RxData2[8];  //存储CAN2接收到的数据
     
@@ -45,7 +45,7 @@ public:
     virtual void Can_update(uint8_t can_RxData[8],CAN_RxHeaderTypeDef* RxHeader);  
     static void CAN1_Filter_Init(void);  //can过滤器配置函数
     static void CAN2_Filter_Init(void);  //默认接收所有can数据帧，使用32位过滤器掩码模式
-	static void Can_Init();  //初始化过滤器，整个工程只需要调用一次即可
+		static void Can_Init();  //初始化过滤器，整个工程只需要调用一次即可
 };
 
 #endif
