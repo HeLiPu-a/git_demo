@@ -1,40 +1,81 @@
 #include "Start.h"
+//#define VOFA_DEBUG
+#define spe_map 200
+M3508 left_3508 (&hcan1, 0x01);
+M3508 right_3508(&hcan1, 0x02);
+M3508 front_3508(&hcan1, 0x03);
 
-//SerialDevice U3 (&huart6, false);
-M3508 front(&hcan1, 0x01);
+xbox   xbox1(&huart1);
+action action1(&huart3); 
+chasis chasis1;
+
+#ifdef VOFA_DEBUG 
+
 VOFA vofa_debug(&huart2);
-xbox xbox1(&huart1);
-extern "C" void before_Start_tasks(void)
-{
-//	Package U3_PK;
-//	U3_PK.Head_0   = 0x0d;
-//	U3_PK.Head_1   = 0x0a;
-//	U3_PK.End_0    = 0x0a;
-//	U3_PK.End_1 	 = 0x0d; 
-//	U3_PK.length   = 3; 
-//	U3_PK.frame_id = 1;
-//	U3.SetRxPackage_identity(U3_PK);
-//  U3.startUartReceiveIT();
-	M3508::CanDevice::Can_Init();
-	front.Set_PID(10,0,0,0,0);
-	vofa_debug.startUartReceiveIT();
-	xbox1.startUartReceiveIT();
-}
 
-extern "C" void Start_tasks(void)
+static void VOFA_set_pid()
 {
-	front.Set_PID(vofa_debug.rxData_.RxFloat_buf[1],
+	front_3508.Set_PID(vofa_debug.rxData_.RxFloat_buf[1],
 								vofa_debug.rxData_.RxFloat_buf[2],
 								vofa_debug.rxData_.RxFloat_buf[3],
 								vofa_debug.rxData_.RxFloat_buf[4],
 								vofa_debug.rxData_.RxFloat_buf[5]);
-	//front.Set_target_RPM(vofa_debug.rxData_.RxFloat_buf[0]);//60就是1s每转
-  front.Set_target_RPM(200*xbox1.joy.normalizedLX);
-	front.PID_caculation();
-	M3508::Send_Motor_data(&hcan1,0x200);
-	vofa_debug.SendFloat(front.pid.target);
-	vofa_debug.SendFloat(front.rxdata.RPM);
+	front_3508.Set_target_RPM(vofa_debug.rxData_.RxFloat_buf[0]);//60就是1s每转
+}
+
+static void VOFA_establish_channels()
+{
+	vofa_debug.SendFloat(front_3508.pid.target);
+	vofa_debug.SendFloat(front_3508.rxdata.RPM);
+	
+	/* 需要保证这一个函数在最后才被调用 */
 	vofa_debug.VOFA_SendEND();
+}
+
+#endif
+
+extern "C" void before_Start_tasks(void)
+{
+  /* 初始化can邮箱 */
+	M3508::CanDevice::Can_Init();
+	/* 初始化各个电机的PID参数 */
+	front_3508.Set_PID(4.075,1.425,0.600,30,300);
+	right_3508.Set_PID(4.075,1.425,0.600,30,300);
+	left_3508.Set_PID (4.075,1.425,0.600,30,300);
+	
+	/* 开启串口中断 */
+	xbox1.startUartReceiveIT();
+	action1.startUartReceiveIT();
+	
+#ifdef VOFA_DEBUG
+	vofa_debug.startUartReceiveIT();
+#endif
+	
+}
+
+extern "C" void Start_tasks(void)
+{
+#ifdef VOFA_DEBUG
+  VOFA_set_pid();
+#endif
+	chasis1.robot_cal(xbox1.joy.normalizedLX * spe_map,
+	                  xbox1.joy.normalizedLY * spe_map,
+	                  xbox1.joy.normalizedRX * 50);
+	
+  front_3508.Set_target_RPM(chasis1.front_wheel_spe);
+	front_3508.PID_caculation();
+  left_3508.Set_target_RPM(chasis1.left_wheel_spe);
+	left_3508.PID_caculation();
+	right_3508.Set_target_RPM(chasis1.right_wheel_spe);
+	right_3508.PID_caculation();
+	/* 需要保证这一个函数在所有电机计算完PID之后才被调用 */
+	M3508::Send_Motor_data(&hcan1,0x200);
+
+#ifdef VOFA_DEBUG
+  VOFA_establish_channels();
+#endif
+
+
 }
 
 btn_flag_t X_btn;

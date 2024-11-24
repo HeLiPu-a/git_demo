@@ -21,6 +21,8 @@ extern "C"
 /*在此处进行宏定义：         begin*/	
 
 #define PI 3.1415926
+#define deadzone_min 30000
+#define deadzone_max 36000
 #define MAX_DATA_LENGTH_XBOX 64
 #define FRAME_HEAD_0_XBOX 0xFC
 #define FRAME_HEAD_1_XBOX 0xFB

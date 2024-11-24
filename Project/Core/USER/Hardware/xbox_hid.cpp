@@ -142,7 +142,7 @@ void xbox::msgs_update(uint8_t len, uint8_t *dat){
 void xbox::joyDataCal(void)
 {
 	
-	if(31000<xbox_msgs.joyLX && xbox_msgs.joyLX<35000)
+	if(deadzone_min < xbox_msgs.joyLX && xbox_msgs.joyLX < deadzone_max)
 	{
 		joy.normalizedLX = 0 ;
 	}
@@ -151,7 +151,7 @@ void xbox::joyDataCal(void)
 		joy.normalizedLX = ( (float)xbox_msgs.joyLX - 32768.0f ) / 32768.0f;
 	}
 	
-	if(31000<xbox_msgs.joyLY && xbox_msgs.joyLY<35000)
+	if(deadzone_min < xbox_msgs.joyLY && xbox_msgs.joyLY < deadzone_max)
 	{
 		joy.normalizedLY = 0 ;
 	}
@@ -160,7 +160,7 @@ void xbox::joyDataCal(void)
 		joy.normalizedLY = ( 32768.0f - (float)xbox_msgs.joyLY ) / 32768.0f;
 	}
 	
-	if(31000<xbox_msgs.joyRX && xbox_msgs.joyRX<35000)
+	if(deadzone_min < xbox_msgs.joyRX && xbox_msgs.joyRX < deadzone_max)
 	{
 		joy.normalizedRX = 0 ;
 	}
@@ -169,7 +169,7 @@ void xbox::joyDataCal(void)
 		joy.normalizedRX = ( 32768.0f - (float)xbox_msgs.joyRX ) / 32768.0f;
  	}
 	
-	if(31000<xbox_msgs.joyRY && xbox_msgs.joyRY<35000)
+	if(deadzone_min < xbox_msgs.joyRY && xbox_msgs.joyRY < deadzone_max)
 	{
 		joy.normalizedRY = 0 ;
 	}

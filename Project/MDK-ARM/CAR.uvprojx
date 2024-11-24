@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F407xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../Core/USER/Base;../Core/USER/Hardware</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../Core/USER/Base;../Core/USER/Hardware;..\Core\USER\Calculation</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -673,6 +673,26 @@
               <FileName>xbox_hid.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\Core\USER\Hardware\xbox_hid.h</FilePath>
+            </File>
+            <File>
+              <FileName>action.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Core\USER\Hardware\action.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>action.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Core\USER\Hardware\action.h</FilePath>
+            </File>
+            <File>
+              <FileName>chasis_caculation.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Core\USER\Calculation\chasis_caculation.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>chasis_caculation.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Core\USER\Calculation\chasis_caculation.h</FilePath>
             </File>
           </Files>
         </Group>

@@ -214,4 +214,5 @@ car/start.o: ..\Core\USER\Base\Start.cpp ..\Core\USER\Base\Start.h \
   D:\keil_new\core\ARM\ARMCLANG\include\libcxx\__math\trigonometric_functions.h \
   D:\keil_new\core\ARM\ARMCLANG\include\libcxx\stdlib.h \
   D:\keil_new\core\ARM\ARMCLANG\include\stdlib.h \
-  ..\Core\USER\Hardware\VOFA.h
+  ..\Core\USER\Hardware\VOFA.h ..\Core\USER\Hardware\action.h \
+  ..\Core\USER\Calculation\chasis_caculation.h
