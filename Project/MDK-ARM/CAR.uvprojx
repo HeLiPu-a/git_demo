@@ -664,6 +664,16 @@
               <FileType>5</FileType>
               <FilePath>..\Core\USER\Hardware\VOFA.h</FilePath>
             </File>
+            <File>
+              <FileName>xbox_hid.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Core\USER\Hardware\xbox_hid.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>xbox_hid.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Core\USER\Hardware\xbox_hid.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

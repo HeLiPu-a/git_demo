@@ -46,4 +46,6 @@ car/freertos.o: ..\Core\Src\freertos.c \
   D:\keil_new\core\ARM\ARMCLANG\include\string.h \
   ..\Core\USER\Base\TaskManager.h ..\Core\USER\Base\Error_Handle.h \
   ..\Core\USER\Hardware\M3508.h ..\Core\USER\Base\CanDevice.h \
-  ..\Core\Inc\can.h ..\Core\USER\Hardware\VOFA.h
+  ..\Core\Inc\can.h ..\Core\USER\Hardware\xbox_hid.h \
+  D:\keil_new\core\ARM\ARMCLANG\include\math.h \
+  ..\Core\USER\Hardware\VOFA.h

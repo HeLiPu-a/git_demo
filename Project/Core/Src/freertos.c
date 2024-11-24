@@ -54,6 +54,13 @@ const osThreadAttr_t defaultTask_attributes = {
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityNormal,
 };
+/* Definitions for btn_detect_Task */
+osThreadId_t btn_detect_TaskHandle;
+const osThreadAttr_t btn_detect_Task_attributes = {
+  .name = "btn_detect_Task",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityNormal5,
+};
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -61,6 +68,7 @@ const osThreadAttr_t defaultTask_attributes = {
 /* USER CODE END FunctionPrototypes */
 
 void StartDefaultTask(void *argument);
+void Task02(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -94,6 +102,9 @@ void MX_FREERTOS_Init(void) {
   /* creation of defaultTask */
   defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
 
+  /* creation of btn_detect_Task */
+  btn_detect_TaskHandle = osThreadNew(Task02, NULL, &btn_detect_Task_attributes);
+
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
@@ -123,6 +134,26 @@ void StartDefaultTask(void *argument)
     osDelay(10);
   }
   /* USER CODE END StartDefaultTask */
+}
+
+/* USER CODE BEGIN Header_Task02 */
+/**
+* @brief Function implementing the btn_detect_Task thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_Task02 */
+void Task02(void *argument)
+{
+  /* USER CODE BEGIN Task02 */
+	
+  /* Infinite loop */
+  for(;;)
+  {
+		xbox_detectbtn_tasks();
+    osDelay(2);
+  }
+  /* USER CODE END Task02 */
 }
 
 /* Private application code --------------------------------------------------*/
