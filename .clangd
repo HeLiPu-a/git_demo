@@ -1,0 +1,5 @@
+CompileFlags:                    
+  Add: [
+    -ID:\\Program Files\\llvm-mingw\\include
+]
+
