@@ -6,56 +6,57 @@ extern "C"
 {
 #endif
 
-/*ÔÚ´Ë´¦ÒıÓÃÍâ²¿ÎÄ¼ş£º       begin*/	
+/*åœ¨æ­¤å¤„å¼•ç”¨å¤–éƒ¨æ–‡ä»¶ï¼š       begin*/	
 #include <math.h>
 
-/*ÒıÓÃÍâ²¿ÎÄ¼şend*/	
+/*å¼•ç”¨å¤–éƒ¨æ–‡ä»¶end*/	
 
 
-/*ÔÚ´Ë´¦Ïò.cÎÄ¼şÉùÃ÷º¯Êı£º       begin*/
+/*åœ¨æ­¤å¤„å‘.cæ–‡ä»¶å£°æ˜å‡½æ•°ï¼š       begin*/
 
-/*º¯ÊıÉùÃ÷end*/	
+/*å‡½æ•°å£°æ˜end*/	
 	
 #ifdef __cplusplus
 }
 #endif
 
 #ifdef __cplusplus
-/*ÔÚ´Ë´¦½øĞĞºê¶¨Òå£º         begin*/	
-#define PI 3.1415926	// ¶¨Òå¦Ğ
-/*ºê¶¨Òåend*/	
+/*åœ¨æ­¤å¤„è¿›è¡Œå®å®šä¹‰ï¼š         begin*/	
+#define PI 3.1415926	// å®šä¹‰Ï€
+/*å®å®šä¹‰end*/	
 
 
-/*ÔÚ´Ë´¦½øÃ¶¾ÙÀàĞÍ¶¨Òå£º         begin*/	
+/*åœ¨æ­¤å¤„è¿›æšä¸¾ç±»å‹å®šä¹‰ï¼š         begin*/	
 
-/*Ã¶¾Ù¶¨Òåend*/	
+/*æšä¸¾å®šä¹‰end*/	
 
 
-/*ÔÚ´Ë´¦½øĞĞÀàºÍ½á¹¹ÌåµÄ¶¨Òå£ºbegin*/	
+/*åœ¨æ­¤å¤„è¿›è¡Œç±»å’Œç»“æ„ä½“çš„å®šä¹‰ï¼šbegin*/	
 
-// µç»úµ×ÅÌµÄÀà
+// ç”µæœºåº•ç›˜çš„ç±»
 class chasis{
-	// ½Ó¿Ú²¿·Ö
+	// æ¥å£éƒ¨åˆ†
 	public:
-		float front_wheel_spe ,left_wheel_spe, right_wheel_spe;											// Èı¸öÂÖ×ÓµÄÄ¿±êËÙ¶È
-		chasis(void){													// ¹¹Ôìº¯Êı,½«Èı¸ö²ÎÊı¾ù³õÊ¼»¯Îª0
+		
+		float front_wheel_spe ,left_wheel_spe, right_wheel_spe;											// ä¸‰ä¸ªè½®å­çš„ç›®æ ‡é€Ÿåº¦
+		chasis(void){													// æ„é€ å‡½æ•°,å°†ä¸‰ä¸ªå‚æ•°å‡åˆå§‹åŒ–ä¸º0
 			front_wheel_spe = 0;
 			left_wheel_spe  = 0;
 			right_wheel_spe = 0;
 		}
-		void robot_cal(float tgvx, float tgvy, float tgw);				// »úÆ÷ÈË×ø±êÏµÏÂµÄ½âËã
-		void world_cal(float tgvx, float tgvy, float tgw, float angle_bias);		// ÊÀ½ç×ø±êÏµÏÂµÄ½âËã
-	//·Ç½Ó¿Ú²¿·Ö
+		void robot_cal(float tgvx, float tgvy, float tgw);				// æœºå™¨äººåæ ‡ç³»ä¸‹çš„è§£ç®—
+		void world_cal(float tgvx, float tgvy, float tgw, float angle_bias);		// ä¸–ç•Œåæ ‡ç³»ä¸‹çš„è§£ç®—
+	//éæ¥å£éƒ¨åˆ†
 	private:
 };
 
-/*ÀàºÍ½á¹¹Ìå¶¨Òåend*/	
+/*ç±»å’Œç»“æ„ä½“å®šä¹‰end*/	
 
 
-/*ÔÚ´Ë´¦½øĞĞº¯Êı¶¨Òå£º       begin*/	
+/*åœ¨æ­¤å¤„è¿›è¡Œå‡½æ•°å®šä¹‰ï¼š       begin*/	
 
 
-/*º¯Êı¶¨Òåend*/	
+/*å‡½æ•°å®šä¹‰end*/	
 
 #endif
 

@@ -3,6 +3,7 @@ VOFA* VOFA::VOFA_instances_buf[Max_Channel_Num] = {nullptr};
 uint8_t VOFA::VOFA_instances_count=0;//记录实际的通道个数
 bool VOFA::VOFA_Error_flag=0;
 UART_HandleTypeDef* VOFA::huart_=nullptr;
+
 VOFA::VOFA(UART_HandleTypeDef *huartx)
      :SerialDevice(huartx)
 {

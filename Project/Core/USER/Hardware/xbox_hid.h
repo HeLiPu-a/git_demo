@@ -6,131 +6,130 @@ extern "C"
 {
 #endif
 
-/*ÔÚ´Ë´¦ÒıÓÃÍâ²¿ÎÄ¼ş£º       begin*/	
+/*åœ¨æ­¤å¤„å¼•ç”¨å¤–éƒ¨æ–‡ä»¶ï¼š       begin*/
 #include "main.h"
 #include "SerialDevice.h"
 #include <string.h>
 #include <math.h>
-/*ÒıÓÃÍâ²¿ÎÄ¼şend*/	
+	/*å¼•ç”¨å¤–éƒ¨æ–‡ä»¶end*/
 
 #ifdef __cplusplus
 }
 #endif
 
 #ifdef __cplusplus
-/*ÔÚ´Ë´¦½øĞĞºê¶¨Òå£º         begin*/	
+/*åœ¨æ­¤å¤„è¿›è¡Œå®å®šä¹‰ï¼š         begin*/
 
 #define PI 3.1415926
-#define deadzone_min 30000
-#define deadzone_max 36000
+#define deadzone_min 26000
+#define deadzone_max 38000
 #define MAX_DATA_LENGTH_XBOX 64
 #define FRAME_HEAD_0_XBOX 0xFC
 #define FRAME_HEAD_1_XBOX 0xFB
 #define FRAME_END_0_XBOX 0xFD
 #define FRAME_END_1_XBOX 0xFE
-#define FRAME_ID_XBOX 
-/*ºê¶¨Òåend*/	
+#define FRAME_ID_XBOX
+/*å®å®šä¹‰end*/
 
+/*åœ¨æ­¤å¤„è¿›æšä¸¾ç±»å‹å®šä¹‰ï¼š         begin*/
 
-/*ÔÚ´Ë´¦½øÃ¶¾ÙÀàĞÍ¶¨Òå£º         begin*/	
-//½á¹¹Ìå
-typedef struct{
-	// ´ÓÊı¾İ°üÖĞ»ñÈ¡µÄÊı¾İ
-  bool btnY, btnB, btnA, btnX; // A,B,X,Y°´¼ü
-	bool btnY_last, btnB_last, btnA_last, btnX_last;
-	
-  bool btnShare, btnStart, btnSelect, btnXbox;				   // ²Ëµ¥²Ù×÷¼ü
-	bool btnShare_last, btnStart_last, btnSelect_last, btnXbox_last;
-	
-  bool btnLB, btnRB;					 // ×óÓÒ¼ç¼ü
-	bool btnLB_last, btnRB_last;
-	
-  bool btnLS, btnRS;					 // ×óÓÒÒ¡¸Ë°´Å¥
-	bool btnLS_last, btnRS_last;
-	
-  bool btnDPadUp, btnDPadLeft, btnDPadRight, btnDPadDown;// Ê®×Ö¼ü
-	bool btnDPadUp_last, btnDPadLeft_last, btnDPadRight_last, btnDPadDown_last;
-	
-  uint16_t joyLX, joyLY;										// ×óÒ¡¸Ë
-  uint16_t joyRX, joyRY;										// ÓÒÒ¡¸Ë	
-  uint16_t trigL, trigR;										// ×óÓÒ°â»ú¼ü
+typedef struct
+{
+	bool btn_last;
+	bool btn;
+} btn_t;
+
+// ç»“æ„ä½“
+typedef struct
+{
+	// ä»æ•°æ®åŒ…ä¸­è·å–çš„æ•°æ®
+	btn_t Y, B, A, X;	//ABXYæŒ‰é”®
+	btn_t Share, Start, Select, Xbox;	//èœå•é”®
+	btn_t LB, RB;	// è‚©é”®
+	btn_t LS, RS;	// å·¦å³æ‘‡æ†
+	btn_t DPadUp, DPadLeft, DPadRight, DPadDown;	// åå­—é”®
+
+	uint16_t joyLX, joyLY; // å·¦æ‘‡æ†
+	uint16_t joyRX, joyRY; // å³æ‘‡æ†
+	uint16_t trigL, trigR; // å·¦å³æ‰³æœºé”®
 } XboxOriginData_t;
 
-/* Ò¡¸ËµÄ´¦ÀíºóÊı¾İ£¨ÎªÁË½ÚÊ¡¿Õ¼ä£¬ÕâÀïÖ»¶ÔÒ¡¸ËµÄÊı¾İ×öÁË¶¨Òå£©£¬²¢²»Éæ¼°°´¼ü */
-typedef struct{
-	float normalizedLX, normalizedLY;							// ×óÒ¡¸Ë×ª»¯ºóµÄx,y×ø±ê(-1,1)
-	float normalizedRX, normalizedRY;						  // ÓÒÒ¡¸Ë×ª»¯ºóµÄx,y×ø±ê(-1,1)
-	float joyAngleL, joyAngleR;								    // Ò¡¸ËµÄ½Ç¶È(0,2pi)
-	float joyRadiusL, joyRadiusR;								  // Ò¡¸Ë²¦³öµÄ°ë¾¶(0,1)
+/* æ‘‡æ†çš„å¤„ç†åæ•°æ®ï¼ˆä¸ºäº†èŠ‚çœç©ºé—´ï¼Œè¿™é‡Œåªå¯¹æ‘‡æ†çš„æ•°æ®åšäº†å®šä¹‰ï¼‰ï¼Œå¹¶ä¸æ¶‰åŠæŒ‰é”® */
+typedef struct
+{
+	float normalizedLX, normalizedLY; // å·¦æ‘‡æ†è½¬åŒ–åçš„x,yåæ ‡(-1,1)
+	float normalizedRX, normalizedRY; // å³æ‘‡æ†è½¬åŒ–åçš„x,yåæ ‡(-1,1)
+	float joyAngleL, joyAngleR;		  // æ‘‡æ†çš„è§’åº¦(0,2pi)
+	float joyRadiusL, joyRadiusR;	  // æ‘‡æ†æ‹¨å‡ºçš„åŠå¾„(0,1)
 } XboxData_t;
 
 typedef struct serial_frame_mat
 {
-	uint8_t frame_head[2];									// Ö¡Í·
-	uint8_t frame_id = 0;									// ID
-	uint8_t data_length = 0; 								// Êı¾İ³¤¶È(µ¥Î»:×Ö½Ú)
-	uint8_t rx_temp_data_mat[MAX_DATA_LENGTH_XBOX];			// Êı¾İ
-	
+	uint8_t frame_head[2];							// å¸§å¤´
+	uint8_t frame_id = 0;							// ID
+	uint8_t data_length = 0;						// æ•°æ®é•¿åº¦(å•ä½:å­—èŠ‚)
+	uint8_t rx_temp_data_mat[MAX_DATA_LENGTH_XBOX]; // æ•°æ®
+
 	union data
 	{
-        float msg_get[MAX_DATA_LENGTH_XBOX / 4] = {0.0f};	// ÓÃÓÚ¸¡µãÊıµÄ½ÓÊÕ
-        uint8_t buff_msg[MAX_DATA_LENGTH_XBOX];				// ÓÃÓÚ×Ö½ÚÁ÷µÄ½ÓÊÕ
-  } data;
-	
-	uint8_t frame_end[2];									// Ö¡Î²
-	uint16_t crc_calculated = 0;							// CRCĞ£Ñé¼ÆËãÖµ
+		float msg_get[MAX_DATA_LENGTH_XBOX / 4] = {0.0f}; // ç”¨äºæµ®ç‚¹æ•°çš„æ¥æ”¶
+		uint8_t buff_msg[MAX_DATA_LENGTH_XBOX];			  // ç”¨äºå­—èŠ‚æµçš„æ¥æ”¶
+	} data;
+
+	uint8_t frame_end[2];		 // å¸§å°¾
+	uint16_t crc_calculated = 0; // CRCæ ¡éªŒè®¡ç®—å€¼
 	union check_code
-	{										// CRCĞ£ÑéÂë
+	{ // CRCæ ¡éªŒç 
 		uint16_t crc_code;
-		uint8_t crc_buff[2];								// CRC Ğ£ÑéµÄ×Ö½ÚĞÎÊ½
-	}check_code;
+		uint8_t crc_buff[2]; // CRC æ ¡éªŒçš„å­—èŠ‚å½¢å¼
+	} check_code;
 
 } serial_frame_mat_t;
-/*Ã¶¾Ù¶¨Òåend*/	
+/*æšä¸¾å®šä¹‰end*/
 
+/*åœ¨æ­¤å¤„è¿›è¡Œç±»å’Œç»“æ„ä½“çš„å®šä¹‰ï¼šbegin*/
+// xboxç±»
+class xbox : public SerialDevice
+{
+	// æ¥å£éƒ¨åˆ†
+public:
+	xbox(UART_HandleTypeDef *huartx) // æ„é€ å‡½æ•°
+		: SerialDevice(huartx)
+	{
+		std::memset(&xbox_msgs, 0, sizeof(xbox_msgs));
+	}
+	void handleReceiveData(uint8_t byte) override; // ä»SerialDeviceç»§æ‰¿çš„è™šå‡½æ•°:æ•°æ®å¤„ç†å‡½æ•°,åœ¨ä¸²å£ä¸­æ–­ä¸­è¢«è°ƒç”¨
+	XboxOriginData_t xbox_msgs;					   // ä»Xboxæ‰‹æŸ„ä¸Šæ¥æ”¶åˆ°çš„æ•°æ®
+	XboxData_t joy;
 
-/*ÔÚ´Ë´¦½øĞĞÀàºÍ½á¹¹ÌåµÄ¶¨Òå£ºbegin*/	
-// xboxÀà
-class xbox:public SerialDevice{
-	// ½Ó¿Ú²¿·Ö
-	public:
-		xbox(UART_HandleTypeDef *huartx)						// ¹¹Ôìº¯Êı
-		:SerialDevice(huartx){									
-			std::memset(&xbox_msgs,0,sizeof(xbox_msgs));
-		}
-		void handleReceiveData(uint8_t byte) override;			// ´ÓSerialDevice¼Ì³ĞµÄĞéº¯Êı:Êı¾İ´¦Àíº¯Êı,ÔÚ´®¿ÚÖĞ¶ÏÖĞ±»µ÷ÓÃ
-		XboxOriginData_t xbox_msgs;								          // ´ÓXboxÊÖ±úÉÏ½ÓÊÕµ½µÄÊı¾İ
-	  XboxData_t joy;
-	// ·Ç½Ó¿Ú²¿·Ö
-	private:
-		void btn_update(void);									// ½«"Õâ´ÎµÄ°´¼üÖµ"¸³¸ø"ÉÏ´ÎµÄ°´¼üÖµ",Íê³É°´¼üÖµµÄ¸üĞÂ
-		void msgs_update(uint8_t len, uint8_t *dat);			// xboxÊı¾İ°üÊı¾İ½âÎö,ÊäÈëÊı¾İ°ü,Êä³öÔ­Ê¼Êı¾İ(µ½½á¹¹Ìåxbox_msgsÖĞ)
-		
-		void joyDataCal(void);									// ½«Ô­Ê¼Êı¾İ¼ÆËãµÃµ½Ò¡¸ËÊµ¼ÊÊı¾İ
-	
-		uint8_t rxIndex_;										// µ±Ç°½ÓÊÕµ½µÄ×Ö½ÚµÄË÷Òı
-		serial_frame_mat_t rx_frame_mat;						// ½ÓÊÕÊı¾İµÄÊı¾İÖ¡½á¹¹Ìå
-		enum rxState
-	 {	// Êı¾İ½ÓÊÕµÄ×´Ì¬»ú										
-			WAITING_FOR_HEADER_0,
-			WAITING_FOR_HEADER_1,
-			WAITING_FOR_ID,
-			WAITING_FOR_LENGTH,
-			WAITING_FOR_DATA,
-			WAITING_FOR_CRC_0,
-			WAITING_FOR_CRC_1,
-			WAITING_FOR_END_0,
-			WAITING_FOR_END_1
-		} state_;
+	// éæ¥å£éƒ¨åˆ†
+private:
+	void btn_update(void);						 // å°†"è¿™æ¬¡çš„æŒ‰é”®å€¼"èµ‹ç»™"ä¸Šæ¬¡çš„æŒ‰é”®å€¼",å®ŒæˆæŒ‰é”®å€¼çš„æ›´æ–°
+	void msgs_update(uint8_t len, uint8_t *dat); // xboxæ•°æ®åŒ…æ•°æ®è§£æ,è¾“å…¥æ•°æ®åŒ…,è¾“å‡ºåŸå§‹æ•°æ®(åˆ°ç»“æ„ä½“xbox_msgsä¸­)
+
+	void joyDataCal(void); // å°†åŸå§‹æ•°æ®è®¡ç®—å¾—åˆ°æ‘‡æ†å®é™…æ•°æ®
+
+	uint8_t rxIndex_;				 // å½“å‰æ¥æ”¶åˆ°çš„å­—èŠ‚çš„ç´¢å¼•
+	serial_frame_mat_t rx_frame_mat; // æ¥æ”¶æ•°æ®çš„æ•°æ®å¸§ç»“æ„ä½“
+	enum rxState
+	{ // æ•°æ®æ¥æ”¶çš„çŠ¶æ€æœº
+		WAITING_FOR_HEADER_0,
+		WAITING_FOR_HEADER_1,
+		WAITING_FOR_ID,
+		WAITING_FOR_LENGTH,
+		WAITING_FOR_DATA,
+		WAITING_FOR_CRC_0,
+		WAITING_FOR_CRC_1,
+		WAITING_FOR_END_0,
+		WAITING_FOR_END_1
+	} state_;
 };
-/*ÀàºÍ½á¹¹Ìå¶¨Òåend*/	
+/*ç±»å’Œç»“æ„ä½“å®šä¹‰end*/
 
+/*åœ¨æ­¤å¤„è¿›è¡Œå‡½æ•°å®šä¹‰ï¼š       begin*/
 
-/*ÔÚ´Ë´¦½øĞĞº¯Êı¶¨Òå£º       begin*/	
-
-/*º¯Êı¶¨Òåend*/	
+/*å‡½æ•°å®šä¹‰end*/
 
 #endif
 
-#endif 
-
+#endif

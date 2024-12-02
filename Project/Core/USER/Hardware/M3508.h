@@ -87,6 +87,8 @@ public:
 	PID_t	 pid;
 	rxdata_t rxdata;
 	M3508_info_t M3508_info;
+	static uint8_t stop_flag;
+
 	//设置3508要使用那个can设备和自身的id号
 	M3508(CAN_HandleTypeDef *hcan_, uint32_t can_id_);
 	void Set_PID(float kp_,float ki_,float kd_,float dead_zone_,

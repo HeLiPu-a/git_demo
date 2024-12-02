@@ -14,6 +14,7 @@ extern "C"
 #include "VOFA.h"
 #include "action.h"
 #include "chasis_caculation.h"
+#include "Detect_btn.h"	
 /*引用外部文件end*/	
 
 
@@ -23,6 +24,9 @@ void before_Start_tasks(void);
 void xbox_detectbtn_tasks(void);
 /*函数声明end*/	
 	
+/* 检查按键状态的间隔时间 */	
+#define Interval_time 2
+
 #ifdef __cplusplus
 }
 #endif
@@ -40,12 +44,26 @@ void xbox_detectbtn_tasks(void);
 
 /*在此处进行类和结构体的定义：begin*/	
 
+
+
 /*类和结构体定义end*/	
 typedef struct btn_flag
 {
 	bool single_simple;
 	uint8_t Flag;
 }btn_flag_t;
+
+enum
+{
+	robot_ctrl = 0,
+	world_ctrl
+}chassis_ctrl_Mode;
+
+enum
+{
+	Move = 0,
+	Stop
+}Is_Stop;
 
 /*在此处进行函数定义：       begin*/	
 

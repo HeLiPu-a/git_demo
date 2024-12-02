@@ -131,7 +131,7 @@ void StartDefaultTask(void *argument)
   for(;;)
   {
 		Start_tasks();
-    osDelay(10);
+    osDelay(5);
   }
   /* USER CODE END StartDefaultTask */
 }
@@ -151,7 +151,7 @@ void Task02(void *argument)
   for(;;)
   {
 		xbox_detectbtn_tasks();
-    osDelay(2);
+    osDelay(Interval_time);
   }
   /* USER CODE END Task02 */
 }

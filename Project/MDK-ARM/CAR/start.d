@@ -1,5 +1,5 @@
-car/start.o: ..\Core\USER\Base\Start.cpp ..\Core\USER\Base\Start.h \
-  ..\Core\USER\Base\SerialDevice.h \
+car/start.o: ..\Core\USER\Application\Start.cpp \
+  ..\Core\USER\Application\Start.h ..\Core\USER\Base\SerialDevice.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h \
   ..\Core\Inc\stm32f4xx_hal_conf.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h \
@@ -10,10 +10,10 @@ car/start.o: ..\Core\USER\Base\Start.cpp ..\Core\USER\Base\Start.h \
   D:\keil_new\core\ARM\ARMCLANG\include\libcxx\stdint.h \
   D:\keil_new\core\ARM\ARMCLANG\include\libcxx\__config \
   D:\keil_new\core\ARM\ARMCLANG\include\stdint.h \
-  E:\Robot_Project\YunHao\git_demo\Project\Drivers\CMSIS\Include\cmsis_version.h \
-  E:\Robot_Project\YunHao\git_demo\Project\Drivers\CMSIS\Include\cmsis_compiler.h \
-  E:\Robot_Project\YunHao\git_demo\Project\Drivers\CMSIS\Include\cmsis_armclang.h \
-  E:\Robot_Project\YunHao\git_demo\Project\Drivers\CMSIS\Include\mpu_armv7.h \
+  E:\Robot_Project\YILONG\4\Project\Drivers\CMSIS\Include\cmsis_version.h \
+  E:\Robot_Project\YILONG\4\Project\Drivers\CMSIS\Include\cmsis_compiler.h \
+  E:\Robot_Project\YILONG\4\Project\Drivers\CMSIS\Include\cmsis_armclang.h \
+  E:\Robot_Project\YILONG\4\Project\Drivers\CMSIS\Include\mpu_armv7.h \
   ..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy\stm32_hal_legacy.h \
   D:\keil_new\core\ARM\ARMCLANG\include\libcxx\stddef.h \
@@ -215,4 +215,5 @@ car/start.o: ..\Core\USER\Base\Start.cpp ..\Core\USER\Base\Start.h \
   D:\keil_new\core\ARM\ARMCLANG\include\libcxx\stdlib.h \
   D:\keil_new\core\ARM\ARMCLANG\include\stdlib.h \
   ..\Core\USER\Hardware\VOFA.h ..\Core\USER\Hardware\action.h \
-  ..\Core\USER\Calculation\chasis_caculation.h
+  ..\Core\USER\Calculation\chasis_caculation.h \
+  ..\Core\USER\Application\Detect_btn.h

@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F407xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../Core/USER/Base;../Core/USER/Hardware;..\Core\USER\Calculation</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../Core/USER/Base;../Core/USER/Hardware;..\Core\USER\Calculation;..\Core\USER\Application</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -592,8 +592,18 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>USER</GroupName>
+          <GroupName>Base</GroupName>
           <Files>
+            <File>
+              <FileName>CanDevice.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Core\USER\Base\CanDevice.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>CanDevice.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Core\USER\Base\CanDevice.h</FilePath>
+            </File>
             <File>
               <FileName>Error_Handle.cpp</FileName>
               <FileType>8</FileType>
@@ -615,16 +625,6 @@
               <FilePath>..\Core\USER\Base\SerialDevice.h</FilePath>
             </File>
             <File>
-              <FileName>Start.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\Core\USER\Base\Start.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Start.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Core\USER\Base\Start.h</FilePath>
-            </File>
-            <File>
               <FileName>TaskManager.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\Core\USER\Base\TaskManager.cpp</FilePath>
@@ -634,15 +634,20 @@
               <FileType>5</FileType>
               <FilePath>..\Core\USER\Base\TaskManager.h</FilePath>
             </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Hardware</GroupName>
+          <Files>
             <File>
-              <FileName>CanDevice.cpp</FileName>
+              <FileName>action.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\Core\USER\Base\CanDevice.cpp</FilePath>
+              <FilePath>..\Core\USER\Hardware\action.cpp</FilePath>
             </File>
             <File>
-              <FileName>CanDevice.h</FileName>
+              <FileName>action.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\Core\USER\Base\CanDevice.h</FilePath>
+              <FilePath>..\Core\USER\Hardware\action.h</FilePath>
             </File>
             <File>
               <FileName>M3508.cpp</FileName>
@@ -674,16 +679,11 @@
               <FileType>5</FileType>
               <FilePath>..\Core\USER\Hardware\xbox_hid.h</FilePath>
             </File>
-            <File>
-              <FileName>action.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\Core\USER\Hardware\action.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>action.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Core\USER\Hardware\action.h</FilePath>
-            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Caculation</GroupName>
+          <Files>
             <File>
               <FileName>chasis_caculation.cpp</FileName>
               <FileType>8</FileType>
@@ -693,6 +693,31 @@
               <FileName>chasis_caculation.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\Core\USER\Calculation\chasis_caculation.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Application</GroupName>
+          <Files>
+            <File>
+              <FileName>Detect_btn.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Core\USER\Application\Detect_btn.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Detect_btn.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Core\USER\Application\Detect_btn.h</FilePath>
+            </File>
+            <File>
+              <FileName>Start.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Core\USER\Application\Start.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Start.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Core\USER\Application\Start.h</FilePath>
             </File>
           </Files>
         </Group>

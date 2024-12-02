@@ -1,77 +1,85 @@
 #include "xbox_hid.h"
 
-// ÖØÐ´´ÓSerialDedviceÀïÃæ¼Ì³ÐµÄ´®¿ÚÊý¾Ý´¦ÀíÐéº¯Êý
-void xbox::handleReceiveData(uint8_t byte){
-	switch (state_){
-	// Ö¡Í·
+// é‡å†™ä»ŽSerialDedviceé‡Œé¢ç»§æ‰¿çš„ä¸²å£æ•°æ®å¤„ç†è™šå‡½æ•°
+void xbox::handleReceiveData(uint8_t byte)
+{
+    switch (state_)
+    {
+    // å¸§å¤´
     case WAITING_FOR_HEADER_0:
-        if (byte == FRAME_HEAD_0_XBOX){
+        if (byte == FRAME_HEAD_0_XBOX)
+        {
             state_ = WAITING_FOR_HEADER_1;
-            rx_frame_mat.frame_head[0] = byte;					// ´æ´¢Ö¡Í·
+            rx_frame_mat.frame_head[0] = byte; // å­˜å‚¨å¸§å¤´
         }
         break;
     case WAITING_FOR_HEADER_1:
-        if (byte == FRAME_HEAD_1_XBOX){
+        if (byte == FRAME_HEAD_1_XBOX)
+        {
             state_ = WAITING_FOR_ID;
-            rx_frame_mat.frame_head[1] = byte;					// ´æ´¢Ö¡Í·
+            rx_frame_mat.frame_head[1] = byte; // å­˜å‚¨å¸§å¤´
         }
-        else{
+        else
+        {
             state_ = WAITING_FOR_HEADER_0;
-        } 
+        }
         break;
-	// ID
+    // ID
     case WAITING_FOR_ID:
-        rx_frame_mat.frame_id = byte; 							// ´æ´¢Ö¡ID
+        rx_frame_mat.frame_id = byte; // å­˜å‚¨å¸§ID
         state_ = WAITING_FOR_LENGTH;
         break;
-	// Êý¾Ý³¤¶È
+    // æ•°æ®é•¿åº¦
     case WAITING_FOR_LENGTH:
-        rx_frame_mat.data_length = byte; 						// ´æ´¢Êý¾Ý³¤¶È
+        rx_frame_mat.data_length = byte; // å­˜å‚¨æ•°æ®é•¿åº¦
         rxIndex_ = 0;
         state_ = WAITING_FOR_DATA;
         break;
-	// Êý¾Ý½ÓÊÕ
+    // æ•°æ®æŽ¥æ”¶
     case WAITING_FOR_DATA:
-        rx_frame_mat.rx_temp_data_mat[rxIndex_++] = byte;		// ´æ´¢½ÓÊÕµ½µÄÊý¾Ý
-        if (rxIndex_ >= rx_frame_mat.data_length){
+        rx_frame_mat.rx_temp_data_mat[rxIndex_++] = byte; // å­˜å‚¨æŽ¥æ”¶åˆ°çš„æ•°æ®
+        if (rxIndex_ >= rx_frame_mat.data_length)
+        {
             state_ = WAITING_FOR_CRC_0;
         }
         break;
     case WAITING_FOR_CRC_0:
-        rx_frame_mat.check_code.crc_buff[0] = byte;				// ´æ´¢CRCÐ£ÑéµÄ¸ß×Ö½Ú
+        rx_frame_mat.check_code.crc_buff[0] = byte; // å­˜å‚¨CRCæ ¡éªŒçš„é«˜å­—èŠ‚
         state_ = WAITING_FOR_CRC_1;
         break;
     case WAITING_FOR_CRC_1:
-        rx_frame_mat.check_code.crc_buff[1] = byte;				// ´æ´¢CRCÐ£ÑéµÄµÍ×Ö½Ú
+        rx_frame_mat.check_code.crc_buff[1] = byte; // å­˜å‚¨CRCæ ¡éªŒçš„ä½Žå­—èŠ‚
         state_ = WAITING_FOR_END_0;
         break;
-	//Ö¡Î²
+    // å¸§å°¾
     case WAITING_FOR_END_0:
-        if (byte == FRAME_END_0_XBOX){
+        if (byte == FRAME_END_0_XBOX)
+        {
             state_ = WAITING_FOR_END_1;
-            rx_frame_mat.frame_end[0] = byte;					// ´æ´¢Ö¡Î²
+            rx_frame_mat.frame_end[0] = byte; // å­˜å‚¨å¸§å°¾
         }
-        else{
+        else
+        {
             state_ = WAITING_FOR_HEADER_0;
         }
         break;
     case WAITING_FOR_END_1:
-			if(byte == FRAME_END_1_XBOX)
-			{
-		     rx_frame_mat.frame_end[1] = byte; // ´æ´¢Ö¡Î²
-		    // ½øÐÐCRCÐ£Ñé,µ«Ò»Ö±Ð£Ñé²»Í¨¹ý£¬ÎÒ²Â²âÊÇ½àÓîµÄÐ£ÑéÂëÂë±íÓÐÎó
-//      rx_frame_mat.crc_calculated = CRC16_Table(rx_frame_mat.rx_temp_data_mat, rx_frame_mat.data_length);
-//      if(rx_frame_mat.crc_calculated == rx_frame_mat.check_code.crc_code)
-//			{
-					 for (uint8_t i = 0; i < rx_frame_mat.data_length; i++)
-					 {
-					 	rx_frame_mat.data.buff_msg[i] = rx_frame_mat.rx_temp_data_mat[i];
-					 }
-					 btn_update();//×¢ÒâÕâÀïÊÇÏÈ¸üÐÂÁËÉÏÒ»´ÎµÄ°´¼ü×´Ì¬ÔÙ¸úÐÂ´Ë´ÎµÄ°´¼ü×´Ì¬
-					 msgs_update(rx_frame_mat.data_length, rx_frame_mat.data.buff_msg);
-					 joyDataCal();
-//      }
-			}
+        if (byte == FRAME_END_1_XBOX)
+        {
+            rx_frame_mat.frame_end[1] = byte; // å­˜å‚¨å¸§å°¾
+            // è¿›è¡ŒCRCæ ¡éªŒ,ä½†ä¸€ç›´æ ¡éªŒä¸é€šè¿‡ï¼Œæˆ‘çŒœæµ‹æ˜¯æ´å®‡çš„æ ¡éªŒç ç è¡¨æœ‰è¯¯
+            //      rx_frame_mat.crc_calculated = CRC16_Table(rx_frame_mat.rx_temp_data_mat, rx_frame_mat.data_length);
+            //      if(rx_frame_mat.crc_calculated == rx_frame_mat.check_code.crc_code)
+            //			{
+            for (uint8_t i = 0; i < rx_frame_mat.data_length; i++)
+            {
+                rx_frame_mat.data.buff_msg[i] = rx_frame_mat.rx_temp_data_mat[i];
+            }
+            btn_update(); // æ³¨æ„è¿™é‡Œæ˜¯å…ˆæ›´æ–°äº†ä¸Šä¸€æ¬¡çš„æŒ‰é”®çŠ¶æ€å†è·Ÿæ–°æ­¤æ¬¡çš„æŒ‰é”®çŠ¶æ€
+            msgs_update(rx_frame_mat.data_length, rx_frame_mat.data.buff_msg);
+            joyDataCal();
+            //      }
+        }
         state_ = WAITING_FOR_HEADER_0;
         break;
     default:
@@ -80,112 +88,115 @@ void xbox::handleReceiveData(uint8_t byte){
     }
 }
 
-/* ¸üÐÂ°´¼üÉÏÒ»´ÎµÄ°´¼ü×´Ì¬ */
-void xbox::btn_update(void){
-	xbox_msgs.btnY_last = xbox_msgs.btnY;
-	xbox_msgs.btnB_last = xbox_msgs.btnB;
-	xbox_msgs.btnA_last = xbox_msgs.btnA;
-	xbox_msgs.btnX_last = xbox_msgs.btnX;
-	
-	xbox_msgs.btnShare_last = xbox_msgs.btnShare;
-	xbox_msgs.btnStart_last = xbox_msgs.btnStart;
-	xbox_msgs.btnSelect_last = xbox_msgs.btnSelect;
-	xbox_msgs.btnXbox_last = xbox_msgs.btnXbox;
-	
-	xbox_msgs.btnLB_last = xbox_msgs.btnLB;
-	xbox_msgs.btnRB_last = xbox_msgs.btnRB;
-	xbox_msgs.btnLS_last = xbox_msgs.btnLS;
-	xbox_msgs.btnRS_last = xbox_msgs.btnRS;
-	
-	xbox_msgs.btnDPadUp_last = xbox_msgs.btnDPadUp;
-	xbox_msgs.btnDPadLeft_last = xbox_msgs.btnDPadLeft;
-	xbox_msgs.btnDPadRight_last = xbox_msgs.btnDPadRight;
-	xbox_msgs.btnDPadDown_last = xbox_msgs.btnDPadDown;
+/* æ›´æ–°æŒ‰é”®ä¸Šä¸€æ¬¡çš„æŒ‰é”®çŠ¶æ€ */
+void xbox::btn_update(void)
+{
+    xbox_msgs.Y.btn_last = xbox_msgs.Y.btn;
+    xbox_msgs.B.btn_last = xbox_msgs.B.btn;
+    xbox_msgs.A.btn_last = xbox_msgs.A.btn;
+    xbox_msgs.X.btn_last = xbox_msgs.X.btn;
+
+    xbox_msgs.Share.btn_last  =  xbox_msgs.Share.btn;
+    xbox_msgs.Start.btn_last  =  xbox_msgs.Start.btn;
+    xbox_msgs.Select.btn_last =  xbox_msgs.Select.btn;
+    xbox_msgs.Xbox.btn_last   =  xbox_msgs.Xbox.btn; 
+																										 
+    xbox_msgs.LB.btn_last = xbox_msgs.LB.btn;
+    xbox_msgs.RB.btn_last = xbox_msgs.RB.btn;
+    xbox_msgs.LS.btn_last = xbox_msgs.LS.btn;
+    xbox_msgs.RS.btn_last = xbox_msgs.RS.btn;
+
+    xbox_msgs.DPadUp.btn_last    = xbox_msgs.DPadUp.btn;
+    xbox_msgs.DPadLeft.btn_last  = xbox_msgs.DPadLeft.btn;
+    xbox_msgs.DPadRight.btn_last = xbox_msgs.DPadRight.btn;
+    xbox_msgs.DPadDown.btn_last  = xbox_msgs.DPadDown.btn;
 }
 
-/* ½«»º³åÇøµÄÊý¾Ý¸³Öµµ½¶ÔÓ¦µÄ°´¼üÖÐ */
-void xbox::msgs_update(uint8_t len, uint8_t *dat){
-	if(len == 28){
-		// A,B,X,Y°´¼ü
-		xbox_msgs.btnY = dat[0];
-		xbox_msgs.btnB = dat[1];
-		xbox_msgs.btnA = dat[2];
-		xbox_msgs.btnX = dat[3];
-		// ²Ëµ¥²Ù×÷¼ü
-		xbox_msgs.btnShare = dat[4];
-		xbox_msgs.btnStart = dat[5];
-		xbox_msgs.btnSelect = dat[6];
-		xbox_msgs.btnXbox = dat[7];
-		// ×óÓÒ¼ç¼ü
-		xbox_msgs.btnLB = dat[8];
-		xbox_msgs.btnRB = dat[9];
-		// ×óÓÒÒ¡¸Ë°´Å¥
-		xbox_msgs.btnLS = dat[10];
-		xbox_msgs.btnRS = dat[11];
-		// Ê®×Ö¼ü
-		xbox_msgs.btnDPadUp = dat[12];
-		xbox_msgs.btnDPadLeft = dat[13];
-		xbox_msgs.btnDPadRight = dat[14];
-		xbox_msgs.btnDPadDown = dat[15];
-		// ×óÓÒÒ¡¸Ë£¨»ô¶ûÖµ£¬½øÐÐºÏ³É±ä³ÉfloatÀàÐÍ£©
-		xbox_msgs.joyLX = ((uint16_t)dat[16] << 8) | dat[17];
-		xbox_msgs.joyLY = ((uint16_t)dat[18] << 8) | dat[19];
-		xbox_msgs.joyRX = ((uint16_t)dat[20] << 8) | dat[21];
-		xbox_msgs.joyRY = ((uint16_t)dat[22] << 8) | dat[23];
-		// ×óÓÒ°â»ú¼ü
-		xbox_msgs.trigL = ((uint16_t)dat[24] << 8) | dat[25];
-		xbox_msgs.trigR = ((uint16_t)dat[26] << 8) | dat[27];
-	}
+/* å°†ç¼“å†²åŒºçš„æ•°æ®èµ‹å€¼åˆ°å¯¹åº”çš„æŒ‰é”®ä¸­ */
+void xbox::msgs_update(uint8_t len, uint8_t *dat)
+{
+    if (len == 28)
+    {
+        // A,B,X,YæŒ‰é”®
+        xbox_msgs.Y.btn = dat[0];
+        xbox_msgs.B.btn = dat[1];
+        xbox_msgs.A.btn = dat[2];
+        xbox_msgs.X.btn = dat[3];
+        // èœå•æ“ä½œé”®
+        xbox_msgs.Share.btn = dat[4];
+        xbox_msgs.Start.btn = dat[5];
+        xbox_msgs.Select.btn = dat[6];
+        xbox_msgs.Xbox.btn = dat[7];
+        // å·¦å³è‚©é”®
+        xbox_msgs.LB.btn = dat[8];
+        xbox_msgs.RB.btn = dat[9];
+        // å·¦å³æ‘‡æ†æŒ‰é’®
+        xbox_msgs.LS.btn = dat[10];
+        xbox_msgs.RS.btn = dat[11];
+        // åå­—é”®
+        xbox_msgs.DPadUp.btn = dat[12];
+        xbox_msgs.DPadLeft.btn = dat[13];
+        xbox_msgs.DPadRight.btn = dat[14];
+        xbox_msgs.DPadDown.btn = dat[15];
+        // å·¦å³æ‘‡æ†ï¼ˆéœå°”å€¼ï¼Œè¿›è¡Œåˆæˆå˜æˆfloatç±»åž‹ï¼‰
+        xbox_msgs.joyLX = ((uint16_t)dat[16] << 8) | dat[17];
+        xbox_msgs.joyLY = ((uint16_t)dat[18] << 8) | dat[19];
+        xbox_msgs.joyRX = ((uint16_t)dat[20] << 8) | dat[21];
+        xbox_msgs.joyRY = ((uint16_t)dat[22] << 8) | dat[23];
+        // å·¦å³æ‰³æœºé”®
+        xbox_msgs.trigL = ((uint16_t)dat[24] << 8) | dat[25];
+        xbox_msgs.trigR = ((uint16_t)dat[26] << 8) | dat[27];
+    }
 }
 
-//½«Ò¡¸ËµÄÖµÓ³Éäµ½-1µ½1Ö®¼ä
+// å°†æ‘‡æ†çš„å€¼æ˜ å°„åˆ°-1åˆ°1ä¹‹é—´
 void xbox::joyDataCal(void)
 {
-	
-	if(deadzone_min < xbox_msgs.joyLX && xbox_msgs.joyLX < deadzone_max)
-	{
-		joy.normalizedLX = 0 ;
-	}
-	else
-	{
-		joy.normalizedLX = ( (float)xbox_msgs.joyLX - 32768.0f ) / 32768.0f;
-	}
-	
-	if(deadzone_min < xbox_msgs.joyLY && xbox_msgs.joyLY < deadzone_max)
-	{
-		joy.normalizedLY = 0 ;
-	}
-	else
-	{
-		joy.normalizedLY = ( 32768.0f - (float)xbox_msgs.joyLY ) / 32768.0f;
-	}
-	
-	if(deadzone_min < xbox_msgs.joyRX && xbox_msgs.joyRX < deadzone_max)
-	{
-		joy.normalizedRX = 0 ;
-	}
-	else
-	{
-		joy.normalizedRX = ( 32768.0f - (float)xbox_msgs.joyRX ) / 32768.0f;
- 	}
-	
-	if(deadzone_min < xbox_msgs.joyRY && xbox_msgs.joyRY < deadzone_max)
-	{
-		joy.normalizedRY = 0 ;
-	}
-	else
-	{
-		joy.normalizedRY = ( 32768.0f - (float)xbox_msgs.joyRY ) / 32768.0f;
-	}
-	
-	// ×ª»¯Îª¼«×ø±êÐÎÊ½(Æ½Ê±²»ÐèÒª£¬Ö±½ÓÆÁ±Îµô)
-//	joy.joyAngleL = atan2(joy.normalizedLY, joy.normalizedLX);
-//	joy.joyAngleR = atan2(joy.normalizedRY, joy.normalizedRX);
-//	joy.joyRadiusL = sqrt(joy.normalizedLX * joy.normalizedLX + joy.normalizedLY * joy.normalizedLY);
-//	joy.joyRadiusR = sqrt(joy.normalizedRX * joy.normalizedRX + joy.normalizedRY * joy.normalizedRY);
+
+    if (deadzone_min < xbox_msgs.joyLX && xbox_msgs.joyLX < deadzone_max)
+    {
+        joy.normalizedLX = 0;
+    }
+    else
+    {
+        joy.normalizedLX = ((float)xbox_msgs.joyLX - 32768.0f) / 32768.0f;
+    }
+
+    if (deadzone_min < xbox_msgs.joyLY && xbox_msgs.joyLY < deadzone_max)
+    {
+        joy.normalizedLY = 0;
+    }
+    else
+    {
+        joy.normalizedLY = (32768.0f - (float)xbox_msgs.joyLY) / 32768.0f;
+    }
+
+    if (deadzone_min < xbox_msgs.joyRX && xbox_msgs.joyRX < deadzone_max)
+    {
+        joy.normalizedRX = 0;
+    }
+    else
+    {
+        joy.normalizedRX = ((float)xbox_msgs.joyRX - 32768.0f) / 32768.0f;
+    }
+
+    if (deadzone_min < xbox_msgs.joyRY && xbox_msgs.joyRY < deadzone_max)
+    {
+        joy.normalizedRY = 0;
+    }
+    else
+    {
+        joy.normalizedRY = (32768.0f - (float)xbox_msgs.joyRY) / 32768.0f;
+    }
+
+    // è½¬åŒ–ä¸ºæžåæ ‡å½¢å¼(å¹³æ—¶ä¸éœ€è¦ï¼Œç›´æŽ¥å±è”½æŽ‰)
+    //	joy.joyAngleL = atan2(joy.normalizedLY, joy.normalizedLX);
+    //	joy.joyAngleR = atan2(joy.normalizedRY, joy.normalizedRX);
+    //	joy.joyRadiusL = sqrt(joy.normalizedLX * joy.normalizedLX + joy.normalizedLY * joy.normalizedLY);
+    //	joy.joyRadiusR = sqrt(joy.normalizedRX * joy.normalizedRX + joy.normalizedRY * joy.normalizedRY);
 }
 
-// CRC16 ²é±í
+// CRC16 æŸ¥è¡¨
 static const uint16_t CRC16Table[256] = {
     // CRC16 table as defined previously
     0x0000, 0x1021, 0x2042, 0x3063, 0x4084, 0x50A5, 0x60C6, 0x70E7,
@@ -221,7 +232,7 @@ static const uint16_t CRC16Table[256] = {
     0xEF1F, 0xFF3E, 0xCF5D, 0xDF7C, 0xAF9B, 0xBFBA, 0x8FD9, 0x9FF8,
     0x6E17, 0x7E36, 0x4E55, 0x5E74, 0x2E93, 0x3EB2, 0x0ED1, 0x1EF0};
 
-// ¼ÆËã CRC16 Ð£ÑéÂë
+// è®¡ç®— CRC16 æ ¡éªŒç 
 uint16_t CRC16_Table(uint8_t *p, uint8_t counter)
 {
     uint16_t crc = 0;
@@ -259,4 +270,3 @@ uint8_t CRC8_Table(uint8_t *p, uint8_t counter)
     }
     return crc8;
 }
-

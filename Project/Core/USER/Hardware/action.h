@@ -1,19 +1,19 @@
 #ifndef _ACTION_H_
 #define _ACTION_H_
 
-// Í·ÎÄ¼ş
+// å¤´æ–‡ä»¶
 #ifdef __cplusplus
 extern "C"
 {
 #endif
-#include <string.h >
+#include <string.h>
 #include "main.h"
 #include "SerialDevice.h"
 #ifdef __cplusplus
 }
 #endif
 
-// ºê¶¨Òå&Ã¶¾ÙÀàĞÍ
+// å®å®šä¹‰&æšä¸¾ç±»å‹
 #ifdef __cplusplus
 #define MAX_DATA_LENGTH_ACTION 64
 #define FRAME_HEAD_0_ACTION 0x0D
@@ -22,40 +22,46 @@ extern "C"
 #define FRAME_END_1_ACTION 0x0D
 #define FRAME_ID_ACTION 
 
-// Action´¦ÀíºóµÄÊı¾İ
+// Actionå¤„ç†åçš„æ•°æ®
 typedef struct{
-	float zAngle, xAngle, yAngle;	// º½Ïò½Ç,¸©Ñö½Ç,ºá¹ö½Ç
-	float xPos, yPos;							// x×ø±ê,y×ø±ê
-	float zw;											// º½Ïò½ÇËÙ
+	float zAngle, xAngle, yAngle;	// èˆªå‘è§’,ä¿¯ä»°è§’,æ¨ªæ»šè§’
+	float xPos, yPos;							// xåæ ‡,yåæ ‡
+	float zw;											// èˆªå‘è§’é€Ÿ
 } ActionData_t;
 
-// ActionµÄÀà
+typedef struct{
+	float record_angle,record_x,record_y;
+	float D_zAngle;	        // ç›¸å¯¹äºæ›´æ–°åŸç‚¹ä¹‹åçš„èˆªå‘è§’
+	float D_xPos, D_yPos;		// xåæ ‡,yåæ ‡
+}Delta_Data_t;
+
+// Actionçš„ç±»
 class action:public SerialDevice{
-	// ½Ó¿Ú²¿·Ö
+	// æ¥å£éƒ¨åˆ†
 	public:
-		ActionData_t posture;								                 // ´æ´¢Êµ¼ÊÊı¾İ
-		void handleReceiveData(uint8_t byte) override;		  // ÖØĞ´´ÓSerialDevice¼Ì³ĞµÄĞéº¯Êı
-		ActionData_t* getdata(void);						           // »ñÈ¡Êı¾İ(ÀàĞÍÎª½á¹¹Ìå¾ä±ú,Ê¹ÓÃÊ¾Àı:getdata->xPos)
-		
-	  action(UART_HandleTypeDef *huartx)					      // ¹¹Ôìº¯Êı,³õÊ¼»¯Ê±½«ËùÓĞ²ÎÊı¾ùÉèÖÃÎª0
-		:SerialDevice(huartx){
-			std::memset(&posture, 0, sizeof(posture));	
-			std::memset(&Origindata, 0, sizeof(Origindata));
-		}
-	//·Ç½Ó¿Ú²¿·Ö
+		ActionData_t posture;								                  // å­˜å‚¨å®é™…æ•°æ®
+	  Delta_Data_t delta_posture;                          // å­˜å‚¨ç›¸å¯¹äºåŸç‚¹çš„æ•°æ®
+	  
+	  action(UART_HandleTypeDef *huartx);					      // æ„é€ å‡½æ•°,åˆå§‹åŒ–æ—¶å°†æ‰€æœ‰å‚æ•°å‡è®¾ç½®ä¸º0
+    
+	  void handleReceiveData(uint8_t byte) override;		  // é‡å†™ä»SerialDeviceç»§æ‰¿çš„è™šå‡½æ•°
+		ActionData_t* getdata(void);						           // è·å–æ•°æ®(ç±»å‹ä¸ºç»“æ„ä½“å¥æŸ„,ä½¿ç”¨ç¤ºä¾‹:getdata->xPos)
+		Delta_Data_t* GetDeltaData(void);
+	
+	//éæ¥å£éƒ¨åˆ†
 	private:
-		union{												// Êı¾İ°üÀïµÄÊı¾İ,ÀûÓÃÁªºÏÌåµÄÌØĞÔ½«Ô­Ê¼Êı¾İ´¦ÀíÎªÊµ¼ÊÊı¾İ
+		union{												// æ•°æ®åŒ…é‡Œçš„æ•°æ®,åˆ©ç”¨è”åˆä½“çš„ç‰¹æ€§å°†åŸå§‹æ•°æ®å¤„ç†ä¸ºå®é™…æ•°æ®
 			uint8_t data[24];
 			float ActVal[6];
 		}Origindata;
-		enum rxState{										// Êı¾İ½ÓÊÕµÄ×´Ì¬»ú
+		enum rxState{										// æ•°æ®æ¥æ”¶çš„çŠ¶æ€æœº
 			WAITING_FOR_HEADER_0,
 			WAITING_FOR_HEADER_1,
 			WAITING_FOR_DATA,
 			WAITING_FOR_END_0,
 			WAITING_FOR_END_1
 		} state_;
-		uint8_t rxIndex_;									// µ±Ç°½ÓÊÕµ½µÄ×Ö½ÚµÄË÷Òı
+		uint8_t rxIndex_;									// å½“å‰æ¥æ”¶åˆ°çš„å­—èŠ‚çš„ç´¢å¼•
 };
 
 #endif

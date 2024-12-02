@@ -1,6 +1,7 @@
 #include "M3508.h"
 int16_t M3508::m3508_can1_num =0;
 int16_t M3508::m3508_can2_num =0;
+uint8_t M3508::stop_flag = 0;
 uint8_t M3508::M_can1_Tdata_buf1[8];
 uint8_t M3508::M_can1_Tdata_buf2[8];
 uint8_t M3508::M_can2_Tdata_buf1[8];
@@ -155,7 +156,8 @@ void M3508::PID_caculation()
 	pid.error = pid.target - pid.current;
 	if(pid.error > -pid.dead_zone && pid.error < pid.dead_zone)
 	{//此时说明误差在死区当中，不进行控制
-		return;
+		pid.last_error = pid.error;
+		pid.integral = 0;
 	}
 	pid.p_out = pid.kp * pid.error;
 	if(pid.error>pid.integral_separate||pid.error<-pid.integral_separate)
@@ -166,8 +168,8 @@ void M3508::PID_caculation()
 		pid.integral = 0;
 	}else{
 		pid.integral += pid.error;
-		pid.i_out = pid.ki * pid.integral;
 	}
+	pid.i_out = pid.ki * pid.integral;
 	pid.d_out = pid.kd * (pid.error - pid.last_error);
 	pid.last_error = pid.error;
 	result = pid.p_out + pid.i_out + pid.d_out;
@@ -214,14 +216,14 @@ void M3508::Can_update(uint8_t can_RxData[8],CAN_RxHeaderTypeDef* RxHeader)
 {
 	if(RxHeader->StdId == M3508::CanDevice::can_id+0x200)
 	{
-		rxdata.angle 	   = can_RxData[0]<<8 | can_RxData[1];
-		rxdata.RPM 		   = can_RxData[2]<<8 | can_RxData[3];
+		rxdata.angle 	     = can_RxData[0]<<8 | can_RxData[1];
+		rxdata.RPM 		     = can_RxData[2]<<8 | can_RxData[3];
 		rxdata.Current 	   = can_RxData[4]<<8 | can_RxData[5];
 		rxdata.temperature = can_RxData[6];
 		pid.current = rxdata.RPM;//这里是转子的RPM，外圈的转速要经过19的减速比。
 		updata_ok = 1;
 	}
-	
+	stop_flag = 0;
 }
 
 void M3508::rxdata2info()

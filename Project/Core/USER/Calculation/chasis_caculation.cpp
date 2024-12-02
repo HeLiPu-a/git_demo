@@ -1,18 +1,19 @@
 #include "chasis_caculation.h"
 
-// »úÆ÷ÈË×ø±êÏµÏÂµÄ¼ÆËã
+// æœºå™¨äººåæ ‡ç³»ä¸‹çš„è®¡ç®—
 void chasis::robot_cal(float tgvx, float tgvy, float tgw){
-	// Äæ½âËãºóµÃµ½Èı¸öµç»úµÄÄ¿±êËÙ¶È
-	front_wheel_spe = tgvx + 2*tgw;
-	left_wheel_spe = 0.70711*tgvx - 0.70711*tgvy + 2.82843*tgw;
-	right_wheel_spe = 0.70711*tgvx + 0.70711*tgvy + 2.82843*tgw;
+	// é€†è§£ç®—åå¾—åˆ°ä¸‰ä¸ªç”µæœºçš„ç›®æ ‡é€Ÿåº¦
+	front_wheel_spe = -tgvx - 2*tgw;
+	left_wheel_spe  = -0.6712f*tgvx + 0.7412f*tgvy + 2.82843*tgw;
+	right_wheel_spe = -0.6712f*tgvx - 0.7412f*tgvy + 2.82843*tgw;
 }
 
-// ÊÀ½ç×ø±êÏµÏÂµÄ¼ÆËã
+// ä¸–ç•Œåæ ‡ç³»ä¸‹çš„è®¡ç®—
 void chasis::world_cal(float tgvx, float tgvy, float tgw, float angle_bias){
-	// ½«ÊÀ½ç×ø±êÏµÏÂµÄËÙ¶È·Ö½âµ½»úÆ÷ÈË×ø±êÏµÏÂ
+	// å°†ä¸–ç•Œåæ ‡ç³»ä¸‹çš„é€Ÿåº¦åˆ†è§£åˆ°æœºå™¨äººåæ ‡ç³»ä¸‹
 	float tgvx_ = cos(angle_bias)*tgvx + sin(angle_bias)*tgvy;
-	float tgvy_ = sin(angle_bias)*tgvx + cos(angle_bias)*tgvy;
-	// ·Ö½âµ½»úÆ÷ÈË×ø±êÏµÏÂºóÔÙ½øĞĞÊÀ½ç×ø±êÏµÏÂµÄ¼ÆËã
+	float tgvy_ = -sin(angle_bias)*tgvx + cos(angle_bias)*tgvy;
+	// åˆ†è§£åˆ°æœºå™¨äººåæ ‡ç³»ä¸‹åå†è¿›è¡Œä¸–ç•Œåæ ‡ç³»ä¸‹çš„è®¡ç®—
 	robot_cal(tgvx_, tgvy_, tgw);
 }
+   
