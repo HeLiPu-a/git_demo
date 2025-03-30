@@ -15,6 +15,15 @@ extern "C"
 #include "action.h"
 #include "chasis_caculation.h"
 #include "Detect_btn.h"	
+#include "pid.h"
+#include "point_track.h"
+#include "pid_init.h"
+#include "FreeRTOS.h"
+#include "task.h"
+#include "cmsis_os.h"
+#include "queue.h"
+#include "SEGGER_RTT.h"
+#include "event_groups.h"	
 /*引用外部文件end*/	
 
 
@@ -22,6 +31,7 @@ extern "C"
 void Start_tasks(void);	
 void before_Start_tasks(void);
 void xbox_detectbtn_tasks(void);
+void point_track_tasks(void);
 /*函数声明end*/	
 	
 /* 检查按键状态的间隔时间 */	
@@ -53,17 +63,7 @@ typedef struct btn_flag
 	uint8_t Flag;
 }btn_flag_t;
 
-enum
-{
-	robot_ctrl = 0,
-	world_ctrl
-}chassis_ctrl_Mode;
 
-enum
-{
-	Move = 0,
-	Stop
-}Is_Stop;
 
 /*在此处进行函数定义：       begin*/	
 

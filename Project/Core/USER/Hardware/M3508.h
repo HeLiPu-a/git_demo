@@ -10,7 +10,12 @@ extern "C"
 #include "stm32f4xx_hal.h"
 #include "CanDevice.h"
 #include <stdint.h>
-#include "TaskManager.h"
+#include "pid.h"
+#include "pid_init.h"
+#include "FreeRTOS.h"
+#include "queue.h"
+#include "cmsis_os.h"
+#include "SEGGER_RTT.h"
 /*引用外部文件end*/	
 
 #ifdef __cplusplus
@@ -28,35 +33,11 @@ extern "C"
 
 #define max_M3508_can1_num 8//最大为8，根据实际情况来
 #define max_M3508_can2_num 8
-/*宏定义end*/	
 
+const osMessageQueueAttr_t M3508_Queue01_attributes = {
+  .name = "M3508_Queue"
+};
 
-/*在此处进枚举类型定义：         begin*/	
-
-/*枚举定义end*/	
-
-
-/*在此处进行类和结构体的定义：begin*/	
-typedef struct PID
-{
-	float kp = 0;
-	float ki = 0;
-	float kd = 0;
-	float dead_zone;
-	float integral_separate;
-	float limit_output;
-
-	float target;
-	float current;
-	float error = 0;
-	float last_error = 0;
-	float integral = 0;
-	float p_out;
-	float i_out;
-	float d_out;
-	float output;
-	
-}PID_t;
 
 typedef struct rxdata//发送消息的频率为1KHz,
 {
@@ -72,55 +53,33 @@ typedef struct M3508_info
 	int16_t RPM;
 	int16_t Current; 
 	uint8_t temperature;
-}M3508_info_t;
+} M3508_info_t;
 
 class M3508 : public CanDevice
 {
 public:
-
 	static int16_t  m3508_can1_num;
 	static int16_t  m3508_can2_num;
 	static uint8_t M_can1_Tdata_buf1[8];
 	static uint8_t M_can1_Tdata_buf2[8];
 	static uint8_t M_can2_Tdata_buf1[8];
 	static uint8_t M_can2_Tdata_buf2[8];
-	PID_t	 pid;
 	rxdata_t rxdata;
 	M3508_info_t M3508_info;
 	static uint8_t stop_flag;
+	static QueueHandle_t M3508_SD_Queue_Handle;
+	
 
 	//设置3508要使用那个can设备和自身的id号
 	M3508(CAN_HandleTypeDef *hcan_, uint32_t can_id_);
-	void Set_PID(float kp_,float ki_,float kd_,float dead_zone_,
-			     float integral_separate_,float limmit_output_=16384);
-				 			 			  //最大输出默认为最大电流值	
-	void Set_target_RPM(float target_RPM);
-	void PID_caculation();
-	//由于pid的输出是float类型的，但是发送的电流需要是int16_t类型的，所以需要进行转换
-	void add_M3508_buf();
+	float Set_Point(float target);
+    void set_current(int16_t send_current)   ;
 	static void Send_Motor_data(CAN_HandleTypeDef *hcan_,uint32_t send_ID);	
-	
 	void rxdata2info();
-	//void Can_SendData();//将3508要发送的电流值通过can设备发送出去
-	void Can_update(uint8_t can_RxData[8],
-								  CAN_RxHeaderTypeDef* RxHeader);
-		 		    	 		
-	static bool M3508_error_flag;
-	//static bool set_pid_ok=false;
+	void Can_update(uint8_t can_RxData[8], CAN_RxHeaderTypeDef* RxHeader);
+	static bool M3508_error_flag; 
 	private:
-	int16_t send_current;
 	uint8_t updata_ok;
-	float limit(float IN,float max);//对输出进行限幅
-	
-	void pidOUT2current();
 };
-/*类和结构体定义end*/	
-
-
-/*在此处进行函数定义：       begin*/	
-
-/*函数定义end*/	
-
 #endif
-
 #endif

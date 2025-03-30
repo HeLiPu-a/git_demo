@@ -61,6 +61,18 @@ const osThreadAttr_t btn_detect_Task_attributes = {
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityNormal5,
 };
+/* Definitions for point_track_Tas */
+osThreadId_t point_track_TasHandle;
+const osThreadAttr_t point_track_Tas_attributes = {
+  .name = "point_track_Tas",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityLow,
+};
+/* Definitions for myQueue01 */
+osMessageQueueId_t myQueue01Handle;
+const osMessageQueueAttr_t myQueue01_attributes = {
+  .name = "myQueue01"
+};
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -69,6 +81,7 @@ const osThreadAttr_t btn_detect_Task_attributes = {
 
 void StartDefaultTask(void *argument);
 void Task02(void *argument);
+void Task03(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -94,6 +107,10 @@ void MX_FREERTOS_Init(void) {
   /* start timers, add new ones, ... */
   /* USER CODE END RTOS_TIMERS */
 
+  /* Create the queue(s) */
+  /* creation of myQueue01 */
+  myQueue01Handle = osMessageQueueNew (16, sizeof(uint16_t), &myQueue01_attributes);
+
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
   /* USER CODE END RTOS_QUEUES */
@@ -104,6 +121,9 @@ void MX_FREERTOS_Init(void) {
 
   /* creation of btn_detect_Task */
   btn_detect_TaskHandle = osThreadNew(Task02, NULL, &btn_detect_Task_attributes);
+
+  /* creation of point_track_Tas */
+  point_track_TasHandle = osThreadNew(Task03, NULL, &point_track_Tas_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -130,7 +150,7 @@ void StartDefaultTask(void *argument)
   /* Infinite loop */
   for(;;)
   {
-		Start_tasks();
+	Start_tasks();
     osDelay(5);
   }
   /* USER CODE END StartDefaultTask */
@@ -150,10 +170,30 @@ void Task02(void *argument)
   /* Infinite loop */
   for(;;)
   {
-		xbox_detectbtn_tasks();
+	xbox_detectbtn_tasks();
     osDelay(Interval_time);
   }
   /* USER CODE END Task02 */
+}
+
+/* USER CODE BEGIN Header_Task03 */
+/**
+* @brief Function implementing the point_track_Tas thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_Task03 */
+void Task03(void *argument)
+{
+  /* USER CODE BEGIN Task03 */
+	
+  /* Infinite loop */
+  for(;;)
+  {
+    point_track_tasks();
+//	SEGGER_RTT_printf(0,"run the task3\r\n");
+  }
+  /* USER CODE END Task03 */
 }
 
 /* Private application code --------------------------------------------------*/

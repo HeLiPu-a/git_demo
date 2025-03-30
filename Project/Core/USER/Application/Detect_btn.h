@@ -23,7 +23,18 @@ extern "C"
 
 
 /*在此处进枚举类型定义：         begin*/	
+typedef enum 
+{
+	robot_ctrl = 0,
+	world_ctrl,
+	auto_ctrl
+}chassis_ctrl_Mode_e;
 
+typedef enum 
+{
+	Move = 0,
+	Stop
+}Is_Stop_e;
 /*枚举定义end*/	
 
 
@@ -47,7 +58,7 @@ class DetectBtn
 { 
 	public:
 	xbox *xbox_handle;
-	bool chasis_control_Mode = 0;
+	uint8_t chasis_control_Mode = 0;
 	bool Stop_Flag = 0;
 
 	/* 1.添加按键 */
@@ -63,7 +74,7 @@ class DetectBtn
 	
 	DetectBtn(xbox* xbox_instance);
 	/* 检测上升沿的函数 */
-	bool detectButtonEdge(rising_edge_t *Rise_btn,uint8_t maxState=0);
+	uint8_t detectButtonEdge(rising_edge_t *Rise_btn,uint8_t maxState=0);
 	bool detectButtonPress(press_t *Press_Btn,uint32_t max_time);
 	/* 检测按下的函数 */
 	

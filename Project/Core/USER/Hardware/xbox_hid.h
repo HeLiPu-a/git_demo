@@ -8,9 +8,13 @@ extern "C"
 
 /*在此处引用外部文件：       begin*/
 #include "main.h"
+#include "FreeRTOS.h"
+#include "event_groups.h"
+#include "SEGGER_RTT.h"
 #include "SerialDevice.h"
 #include <string.h>
 #include <math.h>
+
 	/*引用外部文件end*/
 
 #ifdef __cplusplus
@@ -32,6 +36,8 @@ extern "C"
 /*宏定义end*/
 
 /*在此处进枚举类型定义：         begin*/
+
+
 
 typedef struct
 {
@@ -93,17 +99,18 @@ class xbox : public SerialDevice
 {
 	// 接口部分
 public:
-	xbox(UART_HandleTypeDef *huartx) // 构造函数
-		: SerialDevice(huartx)
-	{
-		std::memset(&xbox_msgs, 0, sizeof(xbox_msgs));
-	}
-	void handleReceiveData(uint8_t byte) override; // 从SerialDevice继承的虚函数:数据处理函数,在串口中断中被调用
+	xbox(UART_HandleTypeDef *huartx);
+//	void startUartReceiveIT();
+//	void startUartReceiveIT(uint8_t DMA_Frame_length);
+	void handleReceiveData(uint8_t byte) override; // 
+
+	Event_Status_t SendEvent_Msg(BaseType_t *pxHigherPriorityTaskWoken) override;
 	XboxOriginData_t xbox_msgs;					   // 从Xbox手柄上接收到的数据
 	XboxData_t joy;
 
 	// 非接口部分
 private:
+	
 	void btn_update(void);						 // 将"这次的按键值"赋给"上次的按键值",完成按键值的更新
 	void msgs_update(uint8_t len, uint8_t *dat); // xbox数据包数据解析,输入数据包,输出原始数据(到结构体xbox_msgs中)
 
@@ -129,6 +136,8 @@ private:
 /*在此处进行函数定义：       begin*/
 
 /*函数定义end*/
+
+extern EventGroupHandle_t XboxEventHandle_t;
 
 #endif
 

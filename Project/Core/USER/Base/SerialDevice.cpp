@@ -84,10 +84,7 @@ bool SerialDevice::SendFloat(float data)
     return true;  // 发送成功
 }
 
-void SerialDevice::startUartReceiveIT()
-{
-    HAL_UART_Receive_IT(huart_, rxBuffer_, RX_BUFFER_SIZE);
-}
+
 
 bool SerialDevice::SendInt32(int32_t data)
 {
@@ -125,30 +122,149 @@ bool SerialDevice::SendInt16(int16_t data)
     return true;  // 发送成功
 }
 
+void SerialDevice::startUartReceiveIT()
+{
+    HAL_UART_Receive_IT(huart_, rxBuffer_, RX_BUFFER_SIZE);
+}
+
+void SerialDevice::startUartReceiveIT(uint8_t DMA_Frame_length)
+{
+	Frame_length = DMA_Frame_length;
+	HAL_StatusTypeDef ret = HAL_ERROR;
+	if(0 == Frame_length)
+	{
+#ifdef ERROR_LOG		
+		SEGGER_RTT_printf(0,"Error Frame_length is 0");
+#endif	
+	}
+	__HAL_UART_ENABLE_IT(huart_, UART_IT_IDLE);
+	ret = HAL_UARTEx_ReceiveToIdle_DMA(huart_, 
+								activeBuffer, 
+							    DMA_Frame_length);
+	__HAL_DMA_DISABLE_IT(huart_->hdmarx, DMA_IT_HT);  // 禁用半满中断
+	__HAL_DMA_DISABLE_IT(huart_->hdmarx, DMA_IT_TC);  // 禁用全满中断	
+	__HAL_UART_ENABLE_IT(&huart1, UART_IT_IDLE);  // 使能串口空闲中断(可不加）
+
+	if(HAL_OK != ret)
+	{
+#ifdef ERROR_LOG		
+		SEGGER_RTT_printf(0,"Error Start DMA Fail");
+#endif	
+	}
+}
+void SerialDevice::Change_DisBuf()
+{
+	if(0 == Frame_length)
+	{
+#ifdef ERROR_LOG		
+		SEGGER_RTT_printf(0,"Dot strat DMA,but use Change_buf");
+#endif		
+	}
+	active_index += Frame_length;
+	if(active_index+Frame_length<Max_Package_Length)
+	{
+		activeBuffer = activeBuffer+Frame_length;
+	}
+	else 
+	{
+		if((uint32_t)activeBuffer < (uint32_t)rxBuffer_ + Max_Package_Length)
+		{
+			activeBuffer = rxBuffer2_;
+		}
+		else 
+		{
+			activeBuffer = rxBuffer_;
+		}
+		active_index = 0;
+	}
+}
+
 
 
 extern "C" void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
-  uint8_t rxByte  ;
+    uint8_t rxByte  ;
 	for(int i = 0;i<SerialDevice::instanceCount_;i++)
 	{
 		if(SerialDevice::instances_[i]->huart_ == huart)
 		{	 
 			 rxByte = SerialDevice::instances_[i]->rxBuffer_[0]; 
-       SerialDevice::instances_[i]->handleReceiveData(rxByte);
-       HAL_UART_Receive_IT(SerialDevice::instances_[i]->huart_, 
-                           SerialDevice::instances_[i]->rxBuffer_,
+			 SerialDevice::instances_[i]->handleReceiveData(rxByte);
+			 HAL_UART_Receive_IT(SerialDevice::instances_[i]->huart_, 
+								 SerialDevice::instances_[i]->rxBuffer_,
 													 RX_BUFFER_SIZE);
 		}
 	}
 }
 
+extern "C" void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size)
+{
+		BaseType_t pxHigherPriorityTaskWoken1 = pdFALSE;	
+		for(int i = 0;i<SerialDevice::instanceCount_;i++)
+		{
+			if(SerialDevice::instances_[i]->huart_ == huart)
+			{	 HAL_UART_DMAStop(huart);
+				volatile uint32_t tmp;
+				tmp = huart->Instance->SR;
+				tmp = huart->Instance->DR;
+				(void)tmp;  // 防止编译器优化
+				__HAL_UART_CLEAR_IDLEFLAG(huart);  // 清除空闲中断标志位
+//				 SEGGER_RTT_printf(0,"DMA finish at %d,size is %d,address %x\r\n",
+//								   HAL_GetTick(),Size,
+//								   SerialDevice::instances_[i]->activeBuffer);
+//				 SerialDevice::instances_[i]->Process_index = 	Size;			
+				 if(Size == SerialDevice::instances_[i]->Frame_length)
+				 {
+					
+					SerialDevice::instances_[i]->SendEvent_Msg(&pxHigherPriorityTaskWoken1);
+				 }
+				 
+				 SerialDevice::instances_[i]->Change_DisBuf();
+//				 if(SerialDevice::instances_[i]->activeBuffer == \
+//							 SerialDevice::instances_[i]->rxBuffer_)
+//		{
+//			SerialDevice::instances_[i]->activeBuffer = \
+//			SerialDevice::instances_[i]->rxBuffer2_;
+//		}
+//		else
+//		{
+//			SerialDevice::instances_[i]->activeBuffer = \
+//			SerialDevice::instances_[i]->rxBuffer_;
+//		}
+				 SerialDevice::instances_[i]->startUartReceiveIT(
+									SerialDevice::instances_[i]->Frame_length);
+//				 HAL_StatusTypeDef DMA_ret = HAL_ERROR;
+//				 DMA_ret = HAL_UARTEx_ReceiveToIdle_DMA(huart, 
+//											  SerialDevice::instances_[i]->activeBuffer, 
+//								              SerialDevice::instances_[i]->Frame_length);
+//				if(DMA_ret != HAL_OK)
+//				{
+//					SEGGER_RTT_printf(0,"DMA restart fail at  %d\r\n", HAL_GetTick());
+//				}
+//				
+//				__HAL_DMA_DISABLE_IT(huart->hdmarx, DMA_IT_HT);  // 禁用半满中断
+//				__HAL_DMA_DISABLE_IT(huart->hdmarx, DMA_IT_TC);  // 禁用全满中断
+				
+			}
+		}
+		portYIELD_FROM_ISR(pxHigherPriorityTaskWoken1);
+}
+
+extern "C" void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
+{
+    SEGGER_RTT_printf(0, "UART错误: 0x%08X\n", huart->ErrorCode);
+    // 重启DMA接收
+    HAL_UARTEx_ReceiveToIdle_DMA(huart, SerialDevice::instances_[0]->activeBuffer, SerialDevice::instances_[0]->Frame_length);
+}
 //该函数为虚函数，可以在子类中重新定义实现流程，也可以不实现（根据需求来）
 void SerialDevice::handleReceiveData(uint8_t byte)
 {
 	;
 }
-
+Event_Status_t SerialDevice::SendEvent_Msg(BaseType_t *pxHigherPriorityTaskWoken)
+{
+	return Event_NoDef;
+}
 //// CRC16 查表
 //static const uint16_t CRC16Table[256] = {
 //    // CRC16 table as defined previously

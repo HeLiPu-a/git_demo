@@ -1,8 +1,10 @@
 #include "Detect_btn.h"
 #include <stdint.h>
 
-
 extern xbox   xbox1;
+
+chassis_ctrl_Mode_e chassis_ctrl_Mode;
+Is_Stop_e Is_Stop;
 
 DetectBtn::DetectBtn(xbox *xbox_instance)
 {
@@ -28,7 +30,7 @@ DetectBtn::DetectBtn(xbox *xbox_instance)
 
 
 /* 传入按键此次和上一次的数值做上升沿判断 */
-bool DetectBtn::detectButtonEdge(rising_edge_t *Rise_btn,uint8_t maxState)
+uint8_t DetectBtn::detectButtonEdge(rising_edge_t *Rise_btn,uint8_t maxState)
 {     
 	/* 当检测到第一个上升沿的时候，置一个标志位，
 	   当这个标志位被置起的时候认为后面的上升沿都是未更新数据导致的，

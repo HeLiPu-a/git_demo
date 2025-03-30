@@ -10,10 +10,10 @@ car/serialdevice.o: ..\Core\USER\Base\SerialDevice.cpp \
   D:\keil_new\core\ARM\ARMCLANG\include\libcxx\stdint.h \
   D:\keil_new\core\ARM\ARMCLANG\include\libcxx\__config \
   D:\keil_new\core\ARM\ARMCLANG\include\stdint.h \
-  E:\Robot_Project\YILONG\4\Project\Drivers\CMSIS\Include\cmsis_version.h \
-  E:\Robot_Project\YILONG\4\Project\Drivers\CMSIS\Include\cmsis_compiler.h \
-  E:\Robot_Project\YILONG\4\Project\Drivers\CMSIS\Include\cmsis_armclang.h \
-  E:\Robot_Project\YILONG\4\Project\Drivers\CMSIS\Include\mpu_armv7.h \
+  E:\Robot_Project\XueG\5_1\4\Project\Drivers\CMSIS\Include\cmsis_version.h \
+  E:\Robot_Project\XueG\5_1\4\Project\Drivers\CMSIS\Include\cmsis_compiler.h \
+  E:\Robot_Project\XueG\5_1\4\Project\Drivers\CMSIS\Include\cmsis_armclang.h \
+  E:\Robot_Project\XueG\5_1\4\Project\Drivers\CMSIS\Include\mpu_armv7.h \
   ..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy\stm32_hal_legacy.h \
   D:\keil_new\core\ARM\ARMCLANG\include\libcxx\stddef.h \
@@ -38,4 +38,15 @@ car/serialdevice.o: ..\Core\USER\Base\SerialDevice.cpp \
   D:\keil_new\core\ARM\ARMCLANG\include\libcxx\stdbool.h \
   D:\keil_new\core\ARM\ARMCLANG\include\stdbool.h \
   D:\keil_new\core\ARM\ARMCLANG\include\libcxx\string.h \
-  D:\keil_new\core\ARM\ARMCLANG\include\string.h
+  D:\keil_new\core\ARM\ARMCLANG\include\string.h \
+  ..\Middlewares\RTT\SEGGER_RTT.h ..\Middlewares\RTT\SEGGER_RTT_Conf.h \
+  D:\keil_new\core\ARM\ARMCLANG\include\libcxx\stdlib.h \
+  D:\keil_new\core\ARM\ARMCLANG\include\stdlib.h \
+  D:\keil_new\core\ARM\ARMCLANG\include\stdarg.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\FreeRTOS.h \
+  ..\Core\Inc\FreeRTOSConfig.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\projdefs.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\portable.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\deprecated_definitions.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\portable\RVDS\ARM_CM4F\portmacro.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\mpu_wrappers.h

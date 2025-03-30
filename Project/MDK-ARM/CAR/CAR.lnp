@@ -4,6 +4,7 @@
 "car\gpio.o"
 "car\freertos.o"
 "car\can.o"
+"car\dma.o"
 "car\usart.o"
 "car\stm32f4xx_it.o"
 "car\stm32f4xx_hal_msp.o"
@@ -44,9 +45,14 @@
 "car\m3508.o"
 "car\vofa.o"
 "car\xbox_hid.o"
+"car\pid.o"
+"car\pid_init.o"
 "car\chasis_caculation.o"
 "car\detect_btn.o"
 "car\start.o"
+"car\point_track.o"
+"car\segger_rtt.o"
+"car\segger_rtt_printf.o"
 --strict --scatter "CAR\CAR.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

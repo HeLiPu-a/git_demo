@@ -7,10 +7,10 @@ car/main.o: ..\Core\Src\main.c ..\Core\Inc\main.h \
   ..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f407xx.h \
   ..\Drivers\CMSIS\Include\core_cm4.h \
   D:\keil_new\core\ARM\ARMCLANG\include\stdint.h \
-  E:\Robot_Project\YILONG\4\Project\Drivers\CMSIS\Include\cmsis_version.h \
-  E:\Robot_Project\YILONG\4\Project\Drivers\CMSIS\Include\cmsis_compiler.h \
-  E:\Robot_Project\YILONG\4\Project\Drivers\CMSIS\Include\cmsis_armclang.h \
-  E:\Robot_Project\YILONG\4\Project\Drivers\CMSIS\Include\mpu_armv7.h \
+  E:\Robot_Project\XueG\5_1\4\Project\Drivers\CMSIS\Include\cmsis_version.h \
+  E:\Robot_Project\XueG\5_1\4\Project\Drivers\CMSIS\Include\cmsis_compiler.h \
+  E:\Robot_Project\XueG\5_1\4\Project\Drivers\CMSIS\Include\cmsis_armclang.h \
+  E:\Robot_Project\XueG\5_1\4\Project\Drivers\CMSIS\Include\mpu_armv7.h \
   ..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy\stm32_hal_legacy.h \
   D:\keil_new\core\ARM\ARMCLANG\include\stddef.h \
@@ -41,4 +41,8 @@ car/main.o: ..\Core\Src\main.c ..\Core\Inc\main.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\task.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\list.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os2.h \
-  ..\Core\Inc\can.h ..\Core\Inc\usart.h ..\Core\Inc\gpio.h
+  ..\Core\Inc\can.h ..\Core\Inc\dma.h ..\Core\Inc\usart.h \
+  ..\Core\Inc\gpio.h ..\Middlewares\RTT\SEGGER_RTT.h \
+  ..\Middlewares\RTT\SEGGER_RTT_Conf.h \
+  D:\keil_new\core\ARM\ARMCLANG\include\stdlib.h \
+  D:\keil_new\core\ARM\ARMCLANG\include\stdarg.h
