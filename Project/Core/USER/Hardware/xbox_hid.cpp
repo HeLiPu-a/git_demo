@@ -1,6 +1,7 @@
 #include "xbox_hid.h"
 
-EventGroupHandle_t XboxEventHandle_t = NULL;
+//EventGroupHandle_t XboxEventHandle_t = NULL;
+SemaphoreHandle_t Xbox_Process_Dis_bias;
 xbox::xbox(UART_HandleTypeDef *huartx) // 构造函数
 		: SerialDevice(huartx)
 {
@@ -11,9 +12,12 @@ Event_Status_t xbox::SendEvent_Msg(BaseType_t *pxHigherPriorityTaskWoken)
 {
 	BaseType_t ret = pdFALSE;
 
-	ret = xEventGroupSetBitsFromISR( 
-							   XboxEventHandle_t,
-										    0x01,
+//	ret = xEventGroupSetBitsFromISR( 
+//							   XboxEventHandle_t,
+//										    0x01,
+//                		pxHigherPriorityTaskWoken);
+	ret = xSemaphoreGiveFromISR( 
+							Xbox_Process_Dis_bias,
                 		pxHigherPriorityTaskWoken);
 	if(pdPASS != ret)
 	{

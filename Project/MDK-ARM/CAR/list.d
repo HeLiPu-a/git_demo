@@ -1,8 +1,5 @@
 car/list.o: ..\Middlewares\Third_Party\FreeRTOS\Source\list.c \
-  D:\keil_new\core\ARM\ARMCLANG\include\stdlib.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\FreeRTOS.h \
-  D:\keil_new\core\ARM\ARMCLANG\include\stddef.h \
-  D:\keil_new\core\ARM\ARMCLANG\include\stdint.h \
   ..\Core\Inc\FreeRTOSConfig.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\projdefs.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\portable.h \

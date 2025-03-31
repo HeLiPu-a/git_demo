@@ -1,11 +1,6 @@
 car/taskmanager.o: ..\Core\USER\Base\TaskManager.cpp \
   ..\Core\USER\Base\TaskManager.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\FreeRTOS.h \
-  D:\keil_new\core\ARM\ARMCLANG\include\libcxx\stddef.h \
-  D:\keil_new\core\ARM\ARMCLANG\include\libcxx\__config \
-  D:\keil_new\core\ARM\ARMCLANG\include\stddef.h \
-  D:\keil_new\core\ARM\ARMCLANG\include\libcxx\stdint.h \
-  D:\keil_new\core\ARM\ARMCLANG\include\stdint.h \
   ..\Core\Inc\FreeRTOSConfig.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\projdefs.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\portable.h \

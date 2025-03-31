@@ -1,9 +1,6 @@
 car/cmsis_os2.o: \
   ..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os2.c \
-  D:\keil_new\core\ARM\ARMCLANG\include\string.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os2.h \
-  D:\keil_new\core\ARM\ARMCLANG\include\stdint.h \
-  D:\keil_new\core\ARM\ARMCLANG\include\stddef.h \
   ..\Drivers\CMSIS\Include\cmsis_compiler.h \
   ..\Drivers\CMSIS\Include\cmsis_armclang.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\FreeRTOS.h \
@@ -24,9 +21,6 @@ car/cmsis_os2.o: \
   ..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h \
   ..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f407xx.h \
   ..\Drivers\CMSIS\Include\core_cm4.h \
-  E:\Robot_Project\XueG\5_1\4\Project\Drivers\CMSIS\Include\cmsis_version.h \
-  E:\Robot_Project\XueG\5_1\4\Project\Drivers\CMSIS\Include\cmsis_compiler.h \
-  E:\Robot_Project\XueG\5_1\4\Project\Drivers\CMSIS\Include\mpu_armv7.h \
   ..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h \
   ..\Core\Inc\stm32f4xx_hal_conf.h \

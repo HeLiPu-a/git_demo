@@ -9,6 +9,7 @@ extern "C"
 /*在此处引用外部文件：       begin*/
 #include "main.h"
 #include "FreeRTOS.h"
+#include "semphr.h"
 #include "event_groups.h"
 #include "SEGGER_RTT.h"
 #include "SerialDevice.h"
@@ -24,7 +25,7 @@ extern "C"
 #ifdef __cplusplus
 /*在此处进行宏定义：         begin*/
 
-#define PI 3.1415926
+#define xbox_Frame_Length 36
 #define deadzone_min 26000
 #define deadzone_max 38000
 #define MAX_DATA_LENGTH_XBOX 64
@@ -131,14 +132,14 @@ private:
 		WAITING_FOR_END_1
 	} state_;
 };
-/*类和结构体定义end*/
+/*类和结构体定义end*/ 
 
 /*在此处进行函数定义：       begin*/
 
 /*函数定义end*/
 
-extern EventGroupHandle_t XboxEventHandle_t;
-
+//extern EventGroupHandle_t XboxEventHandle_t;
+extern SemaphoreHandle_t Xbox_Process_Dis_bias;
 #endif
 
 #endif

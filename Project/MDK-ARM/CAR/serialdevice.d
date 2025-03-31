@@ -7,17 +7,8 @@ car/serialdevice.o: ..\Core\USER\Base\SerialDevice.cpp \
   ..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h \
   ..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f407xx.h \
   ..\Drivers\CMSIS\Include\core_cm4.h \
-  D:\keil_new\core\ARM\ARMCLANG\include\libcxx\stdint.h \
-  D:\keil_new\core\ARM\ARMCLANG\include\libcxx\__config \
-  D:\keil_new\core\ARM\ARMCLANG\include\stdint.h \
-  E:\Robot_Project\XueG\5_1\4\Project\Drivers\CMSIS\Include\cmsis_version.h \
-  E:\Robot_Project\XueG\5_1\4\Project\Drivers\CMSIS\Include\cmsis_compiler.h \
-  E:\Robot_Project\XueG\5_1\4\Project\Drivers\CMSIS\Include\cmsis_armclang.h \
-  E:\Robot_Project\XueG\5_1\4\Project\Drivers\CMSIS\Include\mpu_armv7.h \
   ..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy\stm32_hal_legacy.h \
-  D:\keil_new\core\ARM\ARMCLANG\include\libcxx\stddef.h \
-  D:\keil_new\core\ARM\ARMCLANG\include\stddef.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc_ex.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_gpio.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_gpio_ex.h \
@@ -34,15 +25,8 @@ car/serialdevice.o: ..\Core\USER\Base\SerialDevice.cpp \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h \
-  ..\Core\Inc\usart.h ..\Core\Inc\main.h \
-  D:\keil_new\core\ARM\ARMCLANG\include\libcxx\stdbool.h \
-  D:\keil_new\core\ARM\ARMCLANG\include\stdbool.h \
-  D:\keil_new\core\ARM\ARMCLANG\include\libcxx\string.h \
-  D:\keil_new\core\ARM\ARMCLANG\include\string.h \
-  ..\Middlewares\RTT\SEGGER_RTT.h ..\Middlewares\RTT\SEGGER_RTT_Conf.h \
-  D:\keil_new\core\ARM\ARMCLANG\include\libcxx\stdlib.h \
-  D:\keil_new\core\ARM\ARMCLANG\include\stdlib.h \
-  D:\keil_new\core\ARM\ARMCLANG\include\stdarg.h \
+  ..\Core\Inc\usart.h ..\Core\Inc\main.h ..\Middlewares\RTT\SEGGER_RTT.h \
+  ..\Middlewares\RTT\SEGGER_RTT_Conf.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\FreeRTOS.h \
   ..\Core\Inc\FreeRTOSConfig.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\projdefs.h \

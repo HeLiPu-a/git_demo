@@ -28,7 +28,7 @@ extern "C"
 #define MAX_INSTANCES 8
 
 #define ERROR_LOG
-
+//#define DEBUG 
 /*宏定义end*/	
 
 
@@ -58,11 +58,13 @@ typedef enum
 class SerialDevice
 {
    public:
-   uint8_t Frame_length  = 0;
-   uint8_t active_index  = 0;
+   uint8_t Frame_length   = 0;
+   uint16_t active_bias   = 0;
+   uint16_t process_bias  = 0;
    uint8_t rxBuffer_[Max_Package_Length];
    uint8_t rxBuffer2_[Max_Package_Length];
-   uint8_t* activeBuffer = rxBuffer_;
+   uint8_t* activeBase   = rxBuffer_;
+   uint8_t* processBase  = rxBuffer_;
    UART_HandleTypeDef *huart_; 					  // 保存 UART 句柄
     
    bool init_status = false;
@@ -86,7 +88,7 @@ class SerialDevice
 			void 		   startUartReceiveIT();	
 			void  		   startUartReceiveIT(uint8_t DMA_Frame_length);
     virtual void 		   handleReceiveData(uint8_t byte);//串口接收数据处理函数,可以在子类中根据对应模块的通信协议来实现具体逻辑
-			void 		   Change_DisBuf();
+			void 		   Change_DisBuf(uint8_t** BaseAddress,uint16_t* Bias);
 	virtual Event_Status_t SendEvent_Msg(BaseType_t *pxHigherPriorityTaskWoken);
 			
     //static void registerInstance(SerialDevice *instance);

@@ -1,7 +1,5 @@
 car/freertos.o: ..\Core\Src\freertos.c \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\FreeRTOS.h \
-  D:\keil_new\core\ARM\ARMCLANG\include\stddef.h \
-  D:\keil_new\core\ARM\ARMCLANG\include\stdint.h \
   ..\Core\Inc\FreeRTOSConfig.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\projdefs.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\portable.h \
@@ -17,10 +15,6 @@ car/freertos.o: ..\Core\Src\freertos.c \
   ..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h \
   ..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f407xx.h \
   ..\Drivers\CMSIS\Include\core_cm4.h \
-  E:\Robot_Project\XueG\5_1\4\Project\Drivers\CMSIS\Include\cmsis_version.h \
-  E:\Robot_Project\XueG\5_1\4\Project\Drivers\CMSIS\Include\cmsis_compiler.h \
-  E:\Robot_Project\XueG\5_1\4\Project\Drivers\CMSIS\Include\cmsis_armclang.h \
-  E:\Robot_Project\XueG\5_1\4\Project\Drivers\CMSIS\Include\mpu_armv7.h \
   ..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy\stm32_hal_legacy.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc_ex.h \
@@ -42,20 +36,16 @@ car/freertos.o: ..\Core\Src\freertos.c \
   ..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os2.h \
   ..\Core\USER\Application\Start.h ..\Core\USER\Base\SerialDevice.h \
-  ..\Core\Inc\usart.h D:\keil_new\core\ARM\ARMCLANG\include\stdbool.h \
-  D:\keil_new\core\ARM\ARMCLANG\include\string.h \
-  ..\Middlewares\RTT\SEGGER_RTT.h ..\Middlewares\RTT\SEGGER_RTT_Conf.h \
-  D:\keil_new\core\ARM\ARMCLANG\include\stdlib.h \
-  D:\keil_new\core\ARM\ARMCLANG\include\stdarg.h \
-  ..\Core\USER\Base\TaskManager.h ..\Core\USER\Base\Error_Handle.h \
-  ..\Core\USER\Hardware\M3508.h ..\Core\USER\Base\CanDevice.h \
-  ..\Core\Inc\can.h ..\Core\USER\Hardware\pid.h \
-  ..\Core\USER\Hardware\pid_init.h \
+  ..\Core\Inc\usart.h ..\Middlewares\RTT\SEGGER_RTT.h \
+  ..\Middlewares\RTT\SEGGER_RTT_Conf.h ..\Core\USER\Base\TaskManager.h \
+  ..\Core\USER\Base\Error_Handle.h ..\Core\USER\Hardware\M3508.h \
+  ..\Core\USER\Base\CanDevice.h ..\Core\Inc\can.h \
+  ..\Core\USER\Hardware\pid.h ..\Core\USER\Hardware\pid_init.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\queue.h \
   ..\Core\USER\Hardware\xbox_hid.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\semphr.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\event_groups.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\timers.h \
-  D:\keil_new\core\ARM\ARMCLANG\include\math.h \
   ..\Core\USER\Hardware\VOFA.h ..\Core\USER\Hardware\action.h \
   ..\Core\USER\Calculation\chasis_caculation.h \
   ..\Core\USER\Application\Detect_btn.h \

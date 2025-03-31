@@ -3,7 +3,8 @@
 //#define VOFA_DEBUG
 //#defien VOFA_SetPID
 EventGroupHandle_t myxEventGroupHandle_t = NULL;
-extern EventGroupHandle_t XboxEventHandle_t;
+//extern EventGroupHandle_t XboxEventHandle_t;
+extern SemaphoreHandle_t Xbox_Process_Dis_bias;
 
 #define max_speed 482
 xbox   xbox1(&huart1);
@@ -92,13 +93,18 @@ extern "C" void before_Start_tasks(void)
 	//芜湖 已简化
 	
 	/* 开启串口中断 */
-	xbox1.startUartReceiveIT(36);
+	xbox1.startUartReceiveIT(xbox_Frame_Length);
 	action1.startUartReceiveIT();
 	
 	myxEventGroupHandle_t = xEventGroupCreate();
-	XboxEventHandle_t	  = xEventGroupCreate();
-	if(NULL == myxEventGroupHandle_t ||
-	   NULL == XboxEventHandle_t)
+//	XboxEventHandle_t	  = xEventGroupCreate();
+	Xbox_Process_Dis_bias = xSemaphoreCreateCounting(6,0);
+	if(NULL == myxEventGroupHandle_t 
+#if 0
+	|| NULL == XboxEventHandle_t
+#endif
+	||NULL == Xbox_Process_Dis_bias 
+	)
 	{
 		SEGGER_RTT_printf(0,"EventGroup creat Fail\r\n");
 		return ;
@@ -274,24 +280,64 @@ extern "C" void point_track_tasks(void)
 //		SEGGER_RTT_printf(0,"XboxEventHandle_t Error\r\n");
 //		return ;
 //	}
-	BaseType_t r_event2;
-	r_event2 = xEventGroupWaitBits(XboxEventHandle_t,0x01,
-								   pdTRUE,pdFALSE,portMAX_DELAY);
+	
+//	BaseType_t r_event2;
+//	r_event2 = xEventGroupWaitBits(XboxEventHandle_t,0x01,
+//								   pdTRUE,pdFALSE,portMAX_DELAY);
 
-    if((r_event2&0x01) != 0)
-	{
-	    SEGGER_RTT_printf(0,"xbox handle data at %d\r\n",HAL_GetTick());
-		for(int i = 0;i<36;i++)
-		{
-			xbox1.handleReceiveData(xbox1.rxBuffer_[i]);
-		}
+//    if((r_event2&0x01) != 0)
+//	{
+//	    SEGGER_RTT_printf(0,"xbox handle data at %d\r\n",HAL_GetTick());
 //		for(int i = 0;i<36;i++)
 //		{
-//			xbox1.handleReceiveData(xbox1.rxBuffer2_[i]);
+//			xbox1.handleReceiveData(xbox1.rxBuffer_[i]);
 //		}
-	}
+////		for(int i = 0;i<36;i++)
+////		{
+////			xbox1.handleReceiveData(xbox1.rxBuffer2_[i]);
+////		}
+//	}
 
-	
+	BaseType_t r_event3;
+	r_event3 = xSemaphoreTake(Xbox_Process_Dis_bias,50);
+	if(pdTRUE == r_event3)
+	{
+		uint8_t* Process_Data_Dis = NULL;		
+		for(int i = 0;i<xbox1.Frame_length;i++)
+		{
+			xbox1.handleReceiveData((xbox1.processBase+xbox1.process_bias)[i]);
+		}
+		xbox1.Change_DisBuf(&xbox1.processBase,&xbox1.process_bias);
+//		if((uint32_t)xbox1.processBase + xbox1.process_bias + xbox1.Frame_length \
+//		  <(uint32_t)xbox1.processBase + Max_Package_Length)
+//		{
+//			xbox1.process_bias += xbox1.Frame_length;
+//			Process_Data_Dis = xbox1.processBase + xbox1.process_bias;
+//		}
+//		else
+//		{
+//			xbox1.process_bias = 0;
+//		}
+//		for(int i = 0;i<xbox1.Frame_length;i++)
+//		{
+//			xbox1.handleReceiveData(xbox1.rxBuffer_[i]);
+//		}
+		
+	}
+	else
+	{
+#ifdef DEBUG
+		SEGGER_RTT_printf(0,"DMA Restart");
+#endif		
+		if(0 == xbox1.Frame_length)
+		{
+#ifdef DEBUG
+		SEGGER_RTT_printf(0,"Delect the process data thread");
+#endif			
+			vTaskDelete(NULL);
+		}
+		xbox1.startUartReceiveIT(xbox1.Frame_length);
+	}
 //	if(NULL == left_3508.M3508_SD_Queue_Handle)
 //	{
 //		SEGGER_RTT_printf(0,"3508 Queue_handle Error\r\n");
