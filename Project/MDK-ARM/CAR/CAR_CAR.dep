@@ -73,7 +73,7 @@ I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pwr_ex.h)(0x6739AA48)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim.h)(0x6739AA48)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h)(0x6739AA48)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h)(0x6739AA48)
-F (../Core/Src/freertos.c)(0x67E392B4)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Core/USER/Base -I ../Core/USER/Hardware -I ../Core/USER/Calculation -I ../Core/USER/Application -I ../Middlewares/RTT -I ../Middlewares/Easylogger/inc-I./RTE/_CAR-ID:/keil_new/Pack/ARM/CMSIS/6.1.0/CMSIS/Core/Include-ID:/keil_new/Pack/Keil/STM32F4xx_DFP/2.17.1/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="542" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx-o car/freertos.o -MMD)
+F (../Core/Src/freertos.c)(0x67EBB05E)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Core/USER/Base -I ../Core/USER/Hardware -I ../Core/USER/Calculation -I ../Core/USER/Application -I ../Middlewares/RTT -I ../Middlewares/Easylogger/inc-I./RTE/_CAR-ID:/keil_new/Pack/ARM/CMSIS/6.1.0/CMSIS/Core/Include-ID:/keil_new/Pack/Keil/STM32F4xx_DFP/2.17.1/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="542" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx-o car/freertos.o -MMD)
 I (..\Middlewares\Third_Party\FreeRTOS\Source\include\FreeRTOS.h)(0x6739AA04)
 I (..\Core\Inc\FreeRTOSConfig.h)(0x6737F052)
 I (..\Middlewares\Third_Party\FreeRTOS\Source\include\projdefs.h)(0x6739AA04)
@@ -111,8 +111,8 @@ I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h)(0x6739AA48)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h)(0x6739AA48)
 I (..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os.h)(0x6739AA04)
 I (..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os2.h)(0x6739AA04)
-I (..\Core\USER\Application\Start.h)(0x67E4294D)
-I (..\Core\USER\Base\SerialDevice.h)(0x67EA5A27)
+I (..\Core\USER\Application\Start.h)(0x67EBB05E)
+I (..\Core\USER\Base\SerialDevice.h)(0x67EC944C)
 I (..\Core\Inc\usart.h)(0x6742B3EC)
 I (..\Middlewares\RTT\SEGGER_RTT.h)(0x67B00AF3)
 I (..\Middlewares\RTT\SEGGER_RTT_Conf.h)(0x67873D38)
@@ -124,7 +124,7 @@ I (..\Core\Inc\can.h)(0x6737F052)
 I (..\Core\USER\Hardware\pid.h)(0x6753C238)
 I (..\Core\USER\Hardware\pid_init.h)(0x67579A1C)
 I (..\Middlewares\Third_Party\FreeRTOS\Source\include\queue.h)(0x6739AA04)
-I (..\Core\USER\Hardware\xbox_hid.h)(0x67EA94D9)
+I (..\Core\USER\Hardware\xbox_hid.h)(0x67ECA08E)
 I (..\Middlewares\Third_Party\FreeRTOS\Source\include\semphr.h)(0x6739AA04)
 I (..\Middlewares\Third_Party\FreeRTOS\Source\include\event_groups.h)(0x6739AA04)
 I (..\Middlewares\Third_Party\FreeRTOS\Source\include\timers.h)(0x6739AA04)
@@ -941,8 +941,8 @@ F (..\Core\USER\Base\CanDevice.h)(0x67420596)()
 F (..\Core\USER\Base\Error_Handle.cpp)(0x6737F052)(-xc++ -std=gnu++17 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Core/USER/Base -I ../Core/USER/Hardware -I ../Core/USER/Calculation -I ../Core/USER/Application -I ../Middlewares/RTT -I ../Middlewares/Easylogger/inc-I./RTE/_CAR-ID:/keil_new/Pack/ARM/CMSIS/6.1.0/CMSIS/Core/Include-ID:/keil_new/Pack/Keil/STM32F4xx_DFP/2.17.1/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="542" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx-o car/error_handle.o -MMD)
 I (..\Core\USER\Base\Error_Handle.h)(0x6737F052)
 F (..\Core\USER\Base\Error_Handle.h)(0x6737F052)()
-F (..\Core\USER\Base\SerialDevice.cpp)(0x67EA5BAC)(-xc++ -std=gnu++17 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Core/USER/Base -I ../Core/USER/Hardware -I ../Core/USER/Calculation -I ../Core/USER/Application -I ../Middlewares/RTT -I ../Middlewares/Easylogger/inc-I./RTE/_CAR-ID:/keil_new/Pack/ARM/CMSIS/6.1.0/CMSIS/Core/Include-ID:/keil_new/Pack/Keil/STM32F4xx_DFP/2.17.1/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="542" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx-o car/serialdevice.o -MMD)
-I (..\Core\USER\Base\SerialDevice.h)(0x67EA5A27)
+F (..\Core\USER\Base\SerialDevice.cpp)(0x67ECA4E5)(-xc++ -std=gnu++17 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Core/USER/Base -I ../Core/USER/Hardware -I ../Core/USER/Calculation -I ../Core/USER/Application -I ../Middlewares/RTT -I ../Middlewares/Easylogger/inc-I./RTE/_CAR-ID:/keil_new/Pack/ARM/CMSIS/6.1.0/CMSIS/Core/Include-ID:/keil_new/Pack/Keil/STM32F4xx_DFP/2.17.1/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="542" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx-o car/serialdevice.o -MMD)
+I (..\Core\USER\Base\SerialDevice.h)(0x67EC944C)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h)(0x6739AA48)
 I (..\Core\Inc\stm32f4xx_hal_conf.h)(0x6737F052)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h)(0x6739AA48)
@@ -979,7 +979,7 @@ I (..\Middlewares\Third_Party\FreeRTOS\Source\include\portable.h)(0x6739AA04)
 I (..\Middlewares\Third_Party\FreeRTOS\Source\include\deprecated_definitions.h)(0x6739AA04)
 I (..\Middlewares\Third_Party\FreeRTOS\Source\portable\RVDS\ARM_CM4F\portmacro.h)(0x6739AA04)
 I (..\Middlewares\Third_Party\FreeRTOS\Source\include\mpu_wrappers.h)(0x6739AA04)
-F (..\Core\USER\Base\SerialDevice.h)(0x67EA5A27)()
+F (..\Core\USER\Base\SerialDevice.h)(0x67EC944C)()
 F (..\Core\USER\Base\TaskManager.cpp)(0x6737F052)(-xc++ -std=gnu++17 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Core/USER/Base -I ../Core/USER/Hardware -I ../Core/USER/Calculation -I ../Core/USER/Application -I ../Middlewares/RTT -I ../Middlewares/Easylogger/inc-I./RTE/_CAR-ID:/keil_new/Pack/ARM/CMSIS/6.1.0/CMSIS/Core/Include-ID:/keil_new/Pack/Keil/STM32F4xx_DFP/2.17.1/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="542" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx-o car/taskmanager.o -MMD)
 I (..\Core\USER\Base\TaskManager.h)(0x6737F052)
 I (..\Middlewares\Third_Party\FreeRTOS\Source\include\FreeRTOS.h)(0x6739AA04)
@@ -1023,7 +1023,7 @@ I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pwr_ex.h)(0x6739AA48)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim.h)(0x6739AA48)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h)(0x6739AA48)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h)(0x6739AA48)
-I (..\Core\USER\Base\SerialDevice.h)(0x67EA5A27)
+I (..\Core\USER\Base\SerialDevice.h)(0x67EC944C)
 I (..\Core\Inc\usart.h)(0x6742B3EC)
 I (..\Middlewares\RTT\SEGGER_RTT.h)(0x67B00AF3)
 I (..\Middlewares\RTT\SEGGER_RTT_Conf.h)(0x67873D38)
@@ -1035,7 +1035,7 @@ I (..\Middlewares\Third_Party\FreeRTOS\Source\include\deprecated_definitions.h)(
 I (..\Middlewares\Third_Party\FreeRTOS\Source\portable\RVDS\ARM_CM4F\portmacro.h)(0x6739AA04)
 I (..\Middlewares\Third_Party\FreeRTOS\Source\include\mpu_wrappers.h)(0x6739AA04)
 F (..\Core\USER\Hardware\action.h)(0x674DCFBC)()
-F (..\Core\USER\Hardware\M3508.cpp)(0x67E3814C)(-xc++ -std=gnu++17 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Core/USER/Base -I ../Core/USER/Hardware -I ../Core/USER/Calculation -I ../Core/USER/Application -I ../Middlewares/RTT -I ../Middlewares/Easylogger/inc-I./RTE/_CAR-ID:/keil_new/Pack/ARM/CMSIS/6.1.0/CMSIS/Core/Include-ID:/keil_new/Pack/Keil/STM32F4xx_DFP/2.17.1/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="542" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx-o car/m3508.o -MMD)
+F (..\Core\USER\Hardware\M3508.cpp)(0x67EBA9F2)(-xc++ -std=gnu++17 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Core/USER/Base -I ../Core/USER/Hardware -I ../Core/USER/Calculation -I ../Core/USER/Application -I ../Middlewares/RTT -I ../Middlewares/Easylogger/inc-I./RTE/_CAR-ID:/keil_new/Pack/ARM/CMSIS/6.1.0/CMSIS/Core/Include-ID:/keil_new/Pack/Keil/STM32F4xx_DFP/2.17.1/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="542" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx-o car/m3508.o -MMD)
 I (..\Core\USER\Hardware\M3508.h)(0x67E265C8)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h)(0x6739AA48)
 I (..\Core\Inc\stm32f4xx_hal_conf.h)(0x6737F052)
@@ -1084,7 +1084,7 @@ I (..\Middlewares\RTT\SEGGER_RTT_Conf.h)(0x67873D38)
 F (..\Core\USER\Hardware\M3508.h)(0x67E265C8)()
 F (..\Core\USER\Hardware\VOFA.cpp)(0x674D9F98)(-xc++ -std=gnu++17 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Core/USER/Base -I ../Core/USER/Hardware -I ../Core/USER/Calculation -I ../Core/USER/Application -I ../Middlewares/RTT -I ../Middlewares/Easylogger/inc-I./RTE/_CAR-ID:/keil_new/Pack/ARM/CMSIS/6.1.0/CMSIS/Core/Include-ID:/keil_new/Pack/Keil/STM32F4xx_DFP/2.17.1/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="542" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx-o car/vofa.o -MMD)
 I (..\Core\USER\Hardware\VOFA.h)(0x673AE92C)
-I (..\Core\USER\Base\SerialDevice.h)(0x67EA5A27)
+I (..\Core\USER\Base\SerialDevice.h)(0x67EC944C)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h)(0x6739AA48)
 I (..\Core\Inc\stm32f4xx_hal_conf.h)(0x6737F052)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h)(0x6739AA48)
@@ -1122,8 +1122,8 @@ I (..\Middlewares\Third_Party\FreeRTOS\Source\include\deprecated_definitions.h)(
 I (..\Middlewares\Third_Party\FreeRTOS\Source\portable\RVDS\ARM_CM4F\portmacro.h)(0x6739AA04)
 I (..\Middlewares\Third_Party\FreeRTOS\Source\include\mpu_wrappers.h)(0x6739AA04)
 F (..\Core\USER\Hardware\VOFA.h)(0x673AE92C)()
-F (..\Core\USER\Hardware\xbox_hid.cpp)(0x67E96CD1)(-xc++ -std=gnu++17 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Core/USER/Base -I ../Core/USER/Hardware -I ../Core/USER/Calculation -I ../Core/USER/Application -I ../Middlewares/RTT -I ../Middlewares/Easylogger/inc-I./RTE/_CAR-ID:/keil_new/Pack/ARM/CMSIS/6.1.0/CMSIS/Core/Include-ID:/keil_new/Pack/Keil/STM32F4xx_DFP/2.17.1/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="542" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx-o car/xbox_hid.o -MMD)
-I (..\Core\USER\Hardware\xbox_hid.h)(0x67EA94D9)
+F (..\Core\USER\Hardware\xbox_hid.cpp)(0x67ECA53D)(-xc++ -std=gnu++17 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Core/USER/Base -I ../Core/USER/Hardware -I ../Core/USER/Calculation -I ../Core/USER/Application -I ../Middlewares/RTT -I ../Middlewares/Easylogger/inc-I./RTE/_CAR-ID:/keil_new/Pack/ARM/CMSIS/6.1.0/CMSIS/Core/Include-ID:/keil_new/Pack/Keil/STM32F4xx_DFP/2.17.1/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="542" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx-o car/xbox_hid.o -MMD)
+I (..\Core\USER\Hardware\xbox_hid.h)(0x67ECA08E)
 I (..\Core\Inc\main.h)(0x6737F052)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h)(0x6739AA48)
 I (..\Core\Inc\stm32f4xx_hal_conf.h)(0x6737F052)
@@ -1165,9 +1165,9 @@ I (..\Middlewares\Third_Party\FreeRTOS\Source\include\event_groups.h)(0x6739AA04
 I (..\Middlewares\Third_Party\FreeRTOS\Source\include\timers.h)(0x6739AA04)
 I (..\Middlewares\RTT\SEGGER_RTT.h)(0x67B00AF3)
 I (..\Middlewares\RTT\SEGGER_RTT_Conf.h)(0x67873D38)
-I (..\Core\USER\Base\SerialDevice.h)(0x67EA5A27)
+I (..\Core\USER\Base\SerialDevice.h)(0x67EC944C)
 I (..\Core\Inc\usart.h)(0x6742B3EC)
-F (..\Core\USER\Hardware\xbox_hid.h)(0x67EA94D9)()
+F (..\Core\USER\Hardware\xbox_hid.h)(0x67ECA08E)()
 F (..\Core\USER\Hardware\pid.cpp)(0x6753C394)(-xc++ -std=gnu++17 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Core/USER/Base -I ../Core/USER/Hardware -I ../Core/USER/Calculation -I ../Core/USER/Application -I ../Middlewares/RTT -I ../Middlewares/Easylogger/inc-I./RTE/_CAR-ID:/keil_new/Pack/ARM/CMSIS/6.1.0/CMSIS/Core/Include-ID:/keil_new/Pack/Keil/STM32F4xx_DFP/2.17.1/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="542" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx-o car/pid.o -MMD)
 I (..\Core\USER\Hardware\pid.h)(0x6753C238)
 F (..\Core\USER\Hardware\pid.h)(0x6753C238)()
@@ -1206,7 +1206,7 @@ I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pwr_ex.h)(0x6739AA48)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim.h)(0x6739AA48)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h)(0x6739AA48)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h)(0x6739AA48)
-I (..\Core\USER\Hardware\xbox_hid.h)(0x67EA94D9)
+I (..\Core\USER\Hardware\xbox_hid.h)(0x67ECA08E)
 I (..\Middlewares\Third_Party\FreeRTOS\Source\include\FreeRTOS.h)(0x6739AA04)
 I (..\Core\Inc\FreeRTOSConfig.h)(0x6737F052)
 I (..\Middlewares\Third_Party\FreeRTOS\Source\include\projdefs.h)(0x6739AA04)
@@ -1222,9 +1222,9 @@ I (..\Middlewares\Third_Party\FreeRTOS\Source\include\event_groups.h)(0x6739AA04
 I (..\Middlewares\Third_Party\FreeRTOS\Source\include\timers.h)(0x6739AA04)
 I (..\Middlewares\RTT\SEGGER_RTT.h)(0x67B00AF3)
 I (..\Middlewares\RTT\SEGGER_RTT_Conf.h)(0x67873D38)
-I (..\Core\USER\Base\SerialDevice.h)(0x67EA5A27)
+I (..\Core\USER\Base\SerialDevice.h)(0x67EC944C)
 I (..\Core\Inc\usart.h)(0x6742B3EC)
-I (..\Core\USER\Application\Start.h)(0x67E4294D)
+I (..\Core\USER\Application\Start.h)(0x67EBB05E)
 I (..\Core\USER\Base\TaskManager.h)(0x6737F052)
 I (..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os.h)(0x6739AA04)
 I (..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os2.h)(0x6739AA04)
@@ -1239,9 +1239,9 @@ I (..\Core\USER\Hardware\action.h)(0x674DCFBC)
 I (..\Core\USER\Calculation\chasis_caculation.h)(0x674DCFAA)
 I (..\Core\USER\Application\point_track.h)(0x67513FC4)
 F (..\Core\USER\Application\Detect_btn.h)(0x6756DAD7)()
-F (..\Core\USER\Application\Start.cpp)(0x67EA94D9)(-xc++ -std=gnu++17 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Core/USER/Base -I ../Core/USER/Hardware -I ../Core/USER/Calculation -I ../Core/USER/Application -I ../Middlewares/RTT -I ../Middlewares/Easylogger/inc-I./RTE/_CAR-ID:/keil_new/Pack/ARM/CMSIS/6.1.0/CMSIS/Core/Include-ID:/keil_new/Pack/Keil/STM32F4xx_DFP/2.17.1/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="542" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx-o car/start.o -MMD)
-I (..\Core\USER\Application\Start.h)(0x67E4294D)
-I (..\Core\USER\Base\SerialDevice.h)(0x67EA5A27)
+F (..\Core\USER\Application\Start.cpp)(0x67ECA6CD)(-xc++ -std=gnu++17 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Core/USER/Base -I ../Core/USER/Hardware -I ../Core/USER/Calculation -I ../Core/USER/Application -I ../Middlewares/RTT -I ../Middlewares/Easylogger/inc-I./RTE/_CAR-ID:/keil_new/Pack/ARM/CMSIS/6.1.0/CMSIS/Core/Include-ID:/keil_new/Pack/Keil/STM32F4xx_DFP/2.17.1/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="542" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx-o car/start.o -MMD)
+I (..\Core\USER\Application\Start.h)(0x67EBB05E)
+I (..\Core\USER\Base\SerialDevice.h)(0x67EC944C)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h)(0x6739AA48)
 I (..\Core\Inc\stm32f4xx_hal_conf.h)(0x6737F052)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h)(0x6739AA48)
@@ -1290,7 +1290,7 @@ I (..\Core\Inc\can.h)(0x6737F052)
 I (..\Core\USER\Hardware\pid.h)(0x6753C238)
 I (..\Core\USER\Hardware\pid_init.h)(0x67579A1C)
 I (..\Middlewares\Third_Party\FreeRTOS\Source\include\queue.h)(0x6739AA04)
-I (..\Core\USER\Hardware\xbox_hid.h)(0x67EA94D9)
+I (..\Core\USER\Hardware\xbox_hid.h)(0x67ECA08E)
 I (..\Middlewares\Third_Party\FreeRTOS\Source\include\semphr.h)(0x6739AA04)
 I (..\Middlewares\Third_Party\FreeRTOS\Source\include\event_groups.h)(0x6739AA04)
 I (..\Middlewares\Third_Party\FreeRTOS\Source\include\timers.h)(0x6739AA04)
@@ -1299,7 +1299,7 @@ I (..\Core\USER\Hardware\action.h)(0x674DCFBC)
 I (..\Core\USER\Calculation\chasis_caculation.h)(0x674DCFAA)
 I (..\Core\USER\Application\Detect_btn.h)(0x6756DAD7)
 I (..\Core\USER\Application\point_track.h)(0x67513FC4)
-F (..\Core\USER\Application\Start.h)(0x67E4294D)()
+F (..\Core\USER\Application\Start.h)(0x67EBB05E)()
 F (.\point_track.cpp)(0x6756A8DF)(-xc++ -std=gnu++17 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Core/USER/Base -I ../Core/USER/Hardware -I ../Core/USER/Calculation -I ../Core/USER/Application -I ../Middlewares/RTT -I ../Middlewares/Easylogger/inc-I./RTE/_CAR-ID:/keil_new/Pack/ARM/CMSIS/6.1.0/CMSIS/Core/Include-ID:/keil_new/Pack/Keil/STM32F4xx_DFP/2.17.1/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="542" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx-o car/point_track.o -MMD)
 I (point_track.h)(0x67513FE0)
 I (..\Core\Inc\main.h)(0x6737F052)
@@ -1328,8 +1328,8 @@ I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pwr_ex.h)(0x6739AA48)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim.h)(0x6739AA48)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h)(0x6739AA48)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h)(0x6739AA48)
-I (..\Core\USER\Application\Start.h)(0x67E4294D)
-I (..\Core\USER\Base\SerialDevice.h)(0x67EA5A27)
+I (..\Core\USER\Application\Start.h)(0x67EBB05E)
+I (..\Core\USER\Base\SerialDevice.h)(0x67EC944C)
 I (..\Core\Inc\usart.h)(0x6742B3EC)
 I (..\Middlewares\RTT\SEGGER_RTT.h)(0x67B00AF3)
 I (..\Middlewares\RTT\SEGGER_RTT_Conf.h)(0x67873D38)
@@ -1352,7 +1352,7 @@ I (..\Core\Inc\can.h)(0x6737F052)
 I (..\Core\USER\Hardware\pid.h)(0x6753C238)
 I (..\Core\USER\Hardware\pid_init.h)(0x67579A1C)
 I (..\Middlewares\Third_Party\FreeRTOS\Source\include\queue.h)(0x6739AA04)
-I (..\Core\USER\Hardware\xbox_hid.h)(0x67EA94D9)
+I (..\Core\USER\Hardware\xbox_hid.h)(0x67ECA08E)
 I (..\Middlewares\Third_Party\FreeRTOS\Source\include\semphr.h)(0x6739AA04)
 I (..\Middlewares\Third_Party\FreeRTOS\Source\include\event_groups.h)(0x6739AA04)
 I (..\Middlewares\Third_Party\FreeRTOS\Source\include\timers.h)(0x6739AA04)

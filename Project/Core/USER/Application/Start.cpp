@@ -4,7 +4,7 @@
 //#defien VOFA_SetPID
 EventGroupHandle_t myxEventGroupHandle_t = NULL;
 //extern EventGroupHandle_t XboxEventHandle_t;
-extern SemaphoreHandle_t Xbox_Process_Dis_bias;
+//extern SemaphoreHandle_t Xbox_Process_Dis_bias;
 
 #define max_speed 482
 xbox   xbox1(&huart1);
@@ -13,9 +13,9 @@ action action1(&huart3);
 chasis chasis1;
 
 	
-M3508 left_3508 (&hcan1, 0x02);
-M3508 right_3508(&hcan1, 0x03);
-M3508 front_3508(&hcan1, 0x01);
+M3508 left_3508 (&hcan1, 0x202);
+M3508 right_3508(&hcan1, 0x203);
+M3508 front_3508(&hcan1, 0x201);
 
 point_track point_track1;
 
@@ -93,22 +93,12 @@ extern "C" void before_Start_tasks(void)
 	//芜湖 已简化
 	
 	/* 开启串口中断 */
-	xbox1.startUartReceiveIT(xbox_Frame_Length);
+	xbox1.startUartReceiveIT(36);
 	action1.startUartReceiveIT();
 	
 	myxEventGroupHandle_t = xEventGroupCreate();
-//	XboxEventHandle_t	  = xEventGroupCreate();
-	Xbox_Process_Dis_bias = xSemaphoreCreateCounting(6,0);
-	if(NULL == myxEventGroupHandle_t 
-#if 0
-	|| NULL == XboxEventHandle_t
-#endif
-	||NULL == Xbox_Process_Dis_bias 
-	)
-	{
-		SEGGER_RTT_printf(0,"EventGroup creat Fail\r\n");
-		return ;
-	}
+	
+
 #ifdef VOFA_DEBUG
 	vofa_debug.startUartReceiveIT();
 	vofa_debug.rxData_.RxFloat_buf[1] = 18.175;
@@ -158,11 +148,11 @@ extern "C" void Start_tasks(void)
                         0,
 	    					        action1.GetDeltaData()->D_zAngle);
 		}
-	SEGGER_RTT_printf(0,"PID_caculation start at %d \r\n",HAL_GetTick());	
+//	SEGGER_RTT_printf(0,"PID_caculation start at %d \r\n",HAL_GetTick());	
 	front_3508.set_current(mypid_front.caculate(front_3508.Set_Point(60),front_3508.rxdata.RPM));
   left_3508.set_current(mypid_left.caculate(left_3508.Set_Point(chasis1.left_wheel_spe),left_3508.rxdata.RPM));
 	right_3508.set_current(mypid_right.caculate(right_3508.Set_Point(chasis1.right_wheel_spe),right_3508.rxdata.RPM));
-SEGGER_RTT_printf(0,"PID_caculation finish at %d \r\n",HAL_GetTick());	
+//SEGGER_RTT_printf(0,"PID_caculation finish at %d \r\n",HAL_GetTick());	
 	/* 需要保证这一个函数在所有电机计算完PID之后才被调用 */
 	xEventGroupSetBits(myxEventGroupHandle_t,0x01);	
 //	M3508::Send_Motor_data(&hcan1,0x200);
@@ -174,7 +164,7 @@ SEGGER_RTT_printf(0,"PID_caculation finish at %d \r\n",HAL_GetTick());
 
 }
 
-
+//待优化
 /* 按键判断任务，每3ms判断一次 判断速度高于回传速度（回传是130Hz左右)*/
 extern "C" void xbox_detectbtn_tasks(void)
 {
@@ -260,105 +250,7 @@ extern "C" void xbox_detectbtn_tasks(void)
 
 extern "C" void point_track_tasks(void)
 {
-//	if(NULL == myxEventGroupHandle_t)
-//	{
-//		SEGGER_RTT_printf(0,"myxEventGroupHandle_t Error\r\n");
-//		return ;
-//	}
-//	BaseType_t r_event;
-//	r_event = xEventGroupWaitBits(myxEventGroupHandle_t,0x01,
-//									  pdTRUE,pdFALSE,portMAX_DELAY);
 
-//    if((r_event&0x01) != 0)
-//	{
-//	    SEGGER_RTT_printf(0,"Task send success,at %d\r\n",HAL_GetTick());
-//		M3508::Send_Motor_data(&hcan1,0x200);
-//	}
-//	
-//	if(NULL == XboxEventHandle_t)
-//	{
-//		SEGGER_RTT_printf(0,"XboxEventHandle_t Error\r\n");
-//		return ;
-//	}
-	
-//	BaseType_t r_event2;
-//	r_event2 = xEventGroupWaitBits(XboxEventHandle_t,0x01,
-//								   pdTRUE,pdFALSE,portMAX_DELAY);
-
-//    if((r_event2&0x01) != 0)
-//	{
-//	    SEGGER_RTT_printf(0,"xbox handle data at %d\r\n",HAL_GetTick());
-//		for(int i = 0;i<36;i++)
-//		{
-//			xbox1.handleReceiveData(xbox1.rxBuffer_[i]);
-//		}
-////		for(int i = 0;i<36;i++)
-////		{
-////			xbox1.handleReceiveData(xbox1.rxBuffer2_[i]);
-////		}
-//	}
-
-	BaseType_t r_event3;
-	r_event3 = xSemaphoreTake(Xbox_Process_Dis_bias,50);
-	if(pdTRUE == r_event3)
-	{
-		uint8_t* Process_Data_Dis = NULL;		
-		for(int i = 0;i<xbox1.Frame_length;i++)
-		{
-			xbox1.handleReceiveData((xbox1.processBase+xbox1.process_bias)[i]);
-		}
-		xbox1.Change_DisBuf(&xbox1.processBase,&xbox1.process_bias);
-//		if((uint32_t)xbox1.processBase + xbox1.process_bias + xbox1.Frame_length \
-//		  <(uint32_t)xbox1.processBase + Max_Package_Length)
-//		{
-//			xbox1.process_bias += xbox1.Frame_length;
-//			Process_Data_Dis = xbox1.processBase + xbox1.process_bias;
-//		}
-//		else
-//		{
-//			xbox1.process_bias = 0;
-//		}
-//		for(int i = 0;i<xbox1.Frame_length;i++)
-//		{
-//			xbox1.handleReceiveData(xbox1.rxBuffer_[i]);
-//		}
-		
-	}
-	else
-	{
-#ifdef DEBUG
-		SEGGER_RTT_printf(0,"DMA Restart");
-#endif		
-		if(0 == xbox1.Frame_length)
-		{
-#ifdef DEBUG
-		SEGGER_RTT_printf(0,"Delect the process data thread");
-#endif			
-			vTaskDelete(NULL);
-		}
-		xbox1.startUartReceiveIT(xbox1.Frame_length);
-	}
-//	if(NULL == left_3508.M3508_SD_Queue_Handle)
-//	{
-//		SEGGER_RTT_printf(0,"3508 Queue_handle Error\r\n");
-//		return ;
-//	}
-//	uint8_t* p_Send_buf = NULL;
-//	if(pdPASS == xQueueReceive(left_3508.M3508_SD_Queue_Handle,&p_Send_buf,0))
-//	{
-//		SEGGER_RTT_printf(0,"Task send success,%x,at %d\r\n",(uint32_t)p_Send_buf,HAL_GetTick());
-//		uint32_t msg_box = 0;
-//		CAN_TxHeaderTypeDef TxHeader;
-//	// 如果是0x200则控制的是电调为1~4的电机，如果是0x1FF则控制的是电调为5~8的电机
-//		TxHeader.StdId = 0x200;
-//		TxHeader.ExtId = 0x00;				   // 不使用扩展帧
-//		TxHeader.RTR = CAN_RTR_DATA;		   // 使用数据帧,这个帧包括下那个都是hal库提供的
-//		TxHeader.IDE = CAN_ID_STD;			   // 使用标准帧
-//		TxHeader.DLC = 8;					   // 数据长度为8字节
-//		TxHeader.TransmitGlobalTime = DISABLE; // 不使用全局时间戳
-//		HAL_CAN_AddTxMessage(&hcan1, &TxHeader, p_Send_buf, &msg_box);
-
-//	}
 //   point_track1.SetTargetPoint(1000,1000);  //设置目标点位置
 //   //使用斜边模长求出斜边方向的目标速度
 //  point_track1.point_track_(&action1);
@@ -380,4 +272,62 @@ extern "C" void point_track_tasks(void)
 
 //	/* 需要保证这一个函数在所有电机计算完PID之后才被调用 */
 //	M3508::Send_Motor_data(&hcan1,0x200);
+}
+
+/**
+ * @brief  Xbox 处理函数，负责从队列中获取数据并解析处理。
+ * 
+ * @note   该函数会先检查 Xbox_Process_Queue 是否被正确创建。
+ *         如果成功获取消息，则解析接收到的数据。
+ *         若队列未收到数据，且 Frame_length 为 0，则删除任务和队列；
+ *         若队列未收到数据，但 Frame_length 不为 0，则重新启动 DMA 搬运，
+ *         防止 ESP32 掉线导致 IDLEIE 失效。
+ * 
+ * @param  None
+ * @retval None
+ */
+extern "C" void Xbox_Handle(void)
+{
+	if(NULL == xbox1.Xbox_Process_Queue)
+	{
+#ifdef DEBUG
+		SEGGER_RTT_printf(0,"EventGroup creat Fail\r\n");
+#endif
+		return ;
+	}
+	Event_Status_t ret = Event_Not_OK;
+	uint32_t Process_Address = 0;
+	ret = xbox1.Wait_Msg(&Process_Address);
+	if(Event_OK == ret)
+	{
+		for(int i = 0;i<xbox1.Frame_length;i++)
+		{
+			//将Process_Address按照一个字节的方式访问
+			xbox1.handleReceiveData(((uint8_t*)(Process_Address))[i]);
+		}
+	}
+	else
+	{
+		/*如果帧长度为0，说明其实是没有打开DMA搬运，此时删除掉这个线程，
+		和这个队列。处理字节的流程已经在单字节中断中进行了*/
+		if(0 == xbox1.Frame_length)
+		{
+#ifdef DEBUG
+		SEGGER_RTT_printf(0,"Delect the process data thread\r\n");
+#endif			
+			xbox1.Delect_Event();
+			vTaskDelete(NULL);
+		}
+		else
+		{	
+		/* 假如DMA搬运中断没有发送消息过来，说明可能esp32可能掉线了，此时不断
+		进行重启DMA搬运，直到esp32重新上线，因为不重启的话，串口的IDLE位会被置0，
+		此时不能进入再次进入串口空闲中断，整个xbox接收并处理数据线程都会死掉 
+		但我不知道为什么IDLEIE位会被赋值为0*/
+#ifdef DEBUG
+			SEGGER_RTT_printf(0,"DMA Restart at %d\r\n",HAL_GetTick());
+#endif				
+			xbox1.startUartReceiveIT(xbox1.Frame_length);
+		}
+	} 
 }

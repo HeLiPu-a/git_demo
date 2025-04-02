@@ -36,9 +36,10 @@ extern "C"
 #define Error_huart_init 0
 typedef enum
 {
-	Event_OK = 1,
-	Event_Error = 2,
-	Event_NoDef = 3
+	Event_OK     = 1,
+	Event_Not_OK = 2,
+	Event_Error  = 3,
+	Event_NoDef  = 4
 }Event_Status_t;	
 
 typedef enum

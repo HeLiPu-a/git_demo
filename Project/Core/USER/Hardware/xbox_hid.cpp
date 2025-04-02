@@ -1,31 +1,74 @@
 #include "xbox_hid.h"
 
 //EventGroupHandle_t XboxEventHandle_t = NULL;
-SemaphoreHandle_t Xbox_Process_Dis_bias;
 xbox::xbox(UART_HandleTypeDef *huartx) // 构造函数
 		: SerialDevice(huartx)
 {
-		std::memset(&xbox_msgs, 0, sizeof(xbox_msgs));
+	Xbox_Process_Queue = xQueueCreate(6,sizeof(int*));
+	if(NULL == Xbox_Process_Queue)
+	{
+#ifdef DEBUG 
+		SEGGER_RTT_printf(0, "Error,Creat Queue Fail\r\n");
+#endif
+	}
+	std::memset(&xbox_msgs, 0, sizeof(xbox_msgs));
 }
 
 Event_Status_t xbox::SendEvent_Msg(BaseType_t *pxHigherPriorityTaskWoken)
 {
 	BaseType_t ret = pdFALSE;
-
+	if(NULL == Xbox_Process_Queue)
+	{
+#ifdef DEBUG 
+		SEGGER_RTT_printf(0, "Error,Not Creat Queue\r\n");
+#endif
+		return Event_NoDef;
+	}
 //	ret = xEventGroupSetBitsFromISR( 
 //							   XboxEventHandle_t,
 //										    0x01,
 //                		pxHigherPriorityTaskWoken);
-	ret = xSemaphoreGiveFromISR( 
-							Xbox_Process_Dis_bias,
-                		pxHigherPriorityTaskWoken);
+	uint32_t Process_Address = (uint32_t)activeBase + active_bias;
+	ret = xQueueSendFromISR(Xbox_Process_Queue,
+							  &Process_Address,
+                	 pxHigherPriorityTaskWoken);
 	if(pdPASS != ret)
 	{
-		SEGGER_RTT_printf(0,"Set xbox Bit Error\r\n");
+#ifdef DEBUG
+		SEGGER_RTT_printf(0,"Set xbox Queue Fail\r\n");
+#endif
 		return Event_Error;
 	}
     return   Event_OK;         	
 }
+
+Event_Status_t xbox::Wait_Msg(uint32_t *Process_Address)
+{
+	BaseType_t ret;
+	ret = xQueueReceive(Xbox_Process_Queue,Process_Address,50);
+	if(pdTRUE == ret)
+	{
+		return Event_OK;
+	}
+	else 
+	{
+		return Event_Not_OK;
+	}
+}
+
+Event_Status_t xbox::Delect_Event(void)
+{
+	taskENTER_CRITICAL();  // 进入临界区，避免并发访问
+	if (Xbox_Process_Queue != NULL) 
+	{
+		vQueueDelete(Xbox_Process_Queue);
+		Xbox_Process_Queue = NULL;
+	}
+	taskEXIT_CRITICAL();  // 退出临界区
+	return Event_OK;
+}
+
+
 // 重写从SerialDedvice里面继承的串口数据处理虚函数
 void xbox::handleReceiveData(uint8_t byte)
 {
@@ -219,37 +262,6 @@ void xbox::joyDataCal(void)
     // 转化为极坐标形式(平时不需要，直接屏蔽掉)
     //	joy.joyAn   diusR = sqrt(joy.normalizedRX * joy.normalizedRX + joy.normalizedRY * joy.normalizedRY);
 }
-//void xbox::startUartReceiveIT()
-//{
-//	HAL_UART_Receive_IT(huart_, rxBuffer_, RX_BUFFER_SIZE);
-//}
-
-//void  xbox::startUartReceiveIT(uint8_t DMA_Frame_length)
-//{
-//	Frame_length = DMA_Frame_length;
-//	HAL_StatusTypeDef ret = HAL_ERROR;
-//	if(0 == Frame_length)
-//	{
-//#ifdef ERROR_LOG		
-//		SEGGER_RTT_printf(0,"Error Frame_length is 0");
-//#endif	
-//	}
-//	__HAL_UART_ENABLE_IT(huart_, UART_IT_IDLE);
-//	ret = HAL_UARTEx_ReceiveToIdle_DMA(huart_, 
-//								activeBuffer, 
-//							    DMA_Frame_length);
-//	__HAL_DMA_DISABLE_IT(huart_->hdmarx, DMA_IT_HT);  // 禁用半满中断
-//	__HAL_DMA_DISABLE_IT(huart_->hdmarx, DMA_IT_TC);  // 禁用全满中断	
-//	__HAL_UART_ENABLE_IT(&huart1, UART_IT_IDLE);  // 使能串口空闲中断(可不加）
-
-//	if(HAL_OK != ret)
-//	{
-//#ifdef ERROR_LOG		
-//		SEGGER_RTT_printf(0,"Error Start DMA Fail");
-//#endif	
-//	}
-//}
-
 
 // CRC16 查表
 static const uint16_t CRC16Table[256] = {

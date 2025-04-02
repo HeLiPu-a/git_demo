@@ -76,6 +76,14 @@ const osMessageQueueAttr_t myQueue01_attributes = {
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
+osThreadId_t Xbox_TasHandle;
+const osThreadAttr_t Xbox_attributes = {
+  .name = "Xbox_Handle_Task",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityLow,
+};
+
+void Xbox_Handle_Data_Task(void *argument);
 
 /* USER CODE END FunctionPrototypes */
 
@@ -127,6 +135,7 @@ void MX_FREERTOS_Init(void) {
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
+  Xbox_TasHandle = osThreadNew(Xbox_Handle_Data_Task, NULL, &Xbox_attributes);
   /* USER CODE END RTOS_THREADS */
 
   /* USER CODE BEGIN RTOS_EVENTS */
@@ -198,6 +207,12 @@ void Task03(void *argument)
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
-
+void Xbox_Handle_Data_Task(void *argument)
+{
+	for(;;)
+  {
+	 Xbox_Handle();
+  }
+}
 /* USER CODE END Application */
 

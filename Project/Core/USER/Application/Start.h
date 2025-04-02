@@ -32,6 +32,7 @@ void Start_tasks(void);
 void before_Start_tasks(void);
 void xbox_detectbtn_tasks(void);
 void point_track_tasks(void);
+void Xbox_Handle(void);
 /*函数声明end*/	
 	
 /* 检查按键状态的间隔时间 */	

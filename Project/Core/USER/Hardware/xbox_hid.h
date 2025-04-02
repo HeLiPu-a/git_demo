@@ -25,7 +25,7 @@ extern "C"
 #ifdef __cplusplus
 /*在此处进行宏定义：         begin*/
 
-#define xbox_Frame_Length 36
+#define XBOX_FRAME_LENGTH 36
 #define deadzone_min 26000
 #define deadzone_max 38000
 #define MAX_DATA_LENGTH_XBOX 64
@@ -34,6 +34,7 @@ extern "C"
 #define FRAME_END_0_XBOX 0xFD
 #define FRAME_END_1_XBOX 0xFE
 #define FRAME_ID_XBOX
+#define DEBUG
 /*宏定义end*/
 
 /*在此处进枚举类型定义：         begin*/
@@ -106,8 +107,12 @@ public:
 	void handleReceiveData(uint8_t byte) override; // 
 
 	Event_Status_t SendEvent_Msg(BaseType_t *pxHigherPriorityTaskWoken) override;
+	Event_Status_t Wait_Msg(uint32_t * Process_Address);
+	Event_Status_t Delect_Event(void);
+
 	XboxOriginData_t xbox_msgs;					   // 从Xbox手柄上接收到的数据
 	XboxData_t joy;
+	SemaphoreHandle_t Xbox_Process_Queue;
 
 	// 非接口部分
 private:
@@ -139,7 +144,7 @@ private:
 /*函数定义end*/
 
 //extern EventGroupHandle_t XboxEventHandle_t;
-extern SemaphoreHandle_t Xbox_Process_Dis_bias;
+
 #endif
 
 #endif

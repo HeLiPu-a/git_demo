@@ -167,7 +167,7 @@ void M3508::set_current(int16_t send_current)
 // 下面是有关接收数据的函数
 void M3508::Can_update(uint8_t can_RxData[8], CAN_RxHeaderTypeDef *RxHeader)
 {
-	if (RxHeader->StdId == M3508::CanDevice::can_id + 0x200)
+	if (RxHeader->StdId == M3508::CanDevice::can_id)
 	{
 		rxdata.angle = can_RxData[0] << 8 | can_RxData[1];
 		rxdata.RPM = can_RxData[2] << 8 | can_RxData[3];

@@ -126,6 +126,26 @@ void SerialDevice::startUartReceiveIT()
 {
     HAL_UART_Receive_IT(huart_, rxBuffer_, RX_BUFFER_SIZE);
 }
+/**
+ * @brief 启动 UART DMA 接收（支持空闲中断）
+ * 
+ * 该函数用于启动 UART 通过 DMA 接收数据，并启用 UART 空闲中断（IDLE）。
+ * 
+ * 功能包括：
+ * 1. 设置接收帧长 `Frame_length`，并检查其有效性：
+ *    - 若 `Frame_length` 为 0，则改用单字节中断模式(调用startUartReceiveIT())。
+ *    - 若 `Frame_length` 超过 `Max_Package_Length`，则打印错误日志（如果启用了 `ERROR_LOG`）。
+ * 2. 启用 UART IDLE 中断（`UART_IT_IDLE`），用于检测帧结束。
+ * 3. 通过 `HAL_UARTEx_ReceiveToIdle_DMA()` 启动 UART DMA 接收数据。
+ * 4. 禁用 DMA 半满 (`DMA_IT_HT`) 和全满 (`DMA_IT_TC`) 中断，以减少中断次数。
+ * 5. 再次启用 `UART_IT_IDLE` 以确保空闲检测生效（可选）。
+ * 6. 若 DMA 启动失败，则记录错误日志（如果启用了 `ERROR_LOG`）。
+ * 
+ * @param[in] DMA_Frame_length  本次 DMA 传输的帧长度
+ * 
+ * @note 该函数默认采用 FreeRTOS 进行调度，并适用于基于 DMA 的串口接收框架。
+ * @warning 若 `Frame_length` 设置错误，可能导致接收数据异常或缓冲区溢出。
+ */
 
 void SerialDevice::startUartReceiveIT(uint8_t DMA_Frame_length)
 {
@@ -134,7 +154,7 @@ void SerialDevice::startUartReceiveIT(uint8_t DMA_Frame_length)
 	if(0 == Frame_length)
 	{
 #ifdef ERROR_LOG		
-		SEGGER_RTT_printf(0,"Error Frame_length is 0");
+		SEGGER_RTT_printf(0,"Error Frame_length is 0\r\n");
 #endif	
 	}
 	__HAL_UART_ENABLE_IT(huart_, UART_IT_IDLE);
@@ -142,42 +162,42 @@ void SerialDevice::startUartReceiveIT(uint8_t DMA_Frame_length)
 								activeBase+active_bias, 
 							    DMA_Frame_length);
 	__HAL_DMA_DISABLE_IT(huart_->hdmarx, DMA_IT_HT);  // 禁用半满中断
-	__HAL_DMA_DISABLE_IT(huart_->hdmarx, DMA_IT_TC);  // 禁用全满中断	
+//	__HAL_DMA_DISABLE_IT(huart_->hdmarx, DMA_IT_TC);  // 禁用全满中断	
 	__HAL_UART_ENABLE_IT(&huart1, UART_IT_IDLE);  // 使能串口空闲中断(可不加）
 
 	if(HAL_OK != ret)
 	{
 #ifdef ERROR_LOG		
-		SEGGER_RTT_printf(0,"Error Start DMA Fail");
+		SEGGER_RTT_printf(0,"Error Start DMA Fail\r\n");
 #endif	
 	}
 }
+
+/**
+ * @brief 切换接收缓冲区地址并更新偏移量
+ * 
+ * 该函数用于在串口 DMA 接收完成后或者处理数据完成后切换缓冲区地址，
+ * 并更新偏移量 `Bias`。
+ *
+ * 若当前缓冲区的数据接收完毕后，如果偏移量加上一帧的数据超过最大包长 
+ * `Max_Package_Length`，则切换到另一个缓冲区。
+ * 
+ * @param[in,out] BaseAddress  指向当前接收缓冲区基地址的指针
+ * @param[in,out] Bias         指向偏移量的指针，会根据 `Frame_length` 进行更新
+ * 
+ * @note 该函数在 `Frame_length` 为 0 时不会执行实际切换，仅打印错误日志（如果
+ *  启用了 `ERROR_LOG`）。
+ * 
+ */
 void SerialDevice::Change_DisBuf(uint8_t** BaseAddress,uint16_t* Bias)
 {
 	if(0 == Frame_length)
 	{
 #ifdef ERROR_LOG		
-		SEGGER_RTT_printf(0,"Dot strat DMA,but use Change_buf");
+		SEGGER_RTT_printf(0,"Dot strat DMA,but use Change_buf\r\n");
 #endif		
 	}
-//	active_bias += Frame_length;
-//	/* 当此次要填充的数量超过数组边界的时候，切换到下一个数组 */
-//	if(active_bias + Frame_length < Max_Package_Length)
-//	{
-////		activeBase = activeBuffer+Frame_length;
-//	}
-//	else 
-//	{
-//		if(activeBase == rxBuffer_)
-//		{
-//			activeBase = rxBuffer2_;
-//		}
-//		else 
-//		{
-//			activeBase = rxBuffer_;
-//		}
-//		active_bias = 0;
-//	}
+
 	*Bias += Frame_length;
 	if(*Bias + Frame_length > Max_Package_Length)
 	{
@@ -211,6 +231,26 @@ extern "C" void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 	}
 }
 
+/**
+ * @brief UART 接收事件回调函数（DMA + 空闲中断）
+ * 
+ * 该函数在 UART 通过 DMA 接收数据完成或触发空闲中断时被调用。
+ * 它会：
+ * 1. 停止当前 DMA 传输 (`HAL_UART_DMAStop`)。
+ * 2. 读取 `SR` 和 `DR` 寄存器以防止 UART 溢出。
+ * 3. 清除 UART 空闲中断标志 (`__HAL_UART_CLEAR_IDLEFLAG`)。
+ * 4. 记录调试信息（如果启用了 `DEBUG`）。
+ * 5. 检查接收数据大小 `Size` 是否匹配 `Frame_length`，如果匹配则发送任务通知。
+ * 6. 切换 DMA 接收缓冲区 (`Change_DisBuf`)。
+ * 7. 重新启动 UART DMA 接收 (`startUartReceiveIT`)。
+ * 8. 如果有高优先级任务等待，则进行任务切换 (`portYIELD_FROM_ISR`)。
+ * 
+ * @param[in] huart 发生接收事件的 UART 句柄
+ * @param[in] Size  接收到的数据大小
+ * 
+ * @note 该函数适用于 FreeRTOS 环境，确保 `SendEvent_Msg` 和 `portYIELD_FROM_ISR`
+ * 适用于中断上下文。
+ */
 extern "C" void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size)
 {
 		BaseType_t pxHigherPriorityTaskWoken1 = pdFALSE;	
@@ -248,9 +288,28 @@ extern "C" void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t S
 extern "C" void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
 {
 #ifdef ERROR_LOG
-    SEGGER_RTT_printf(0, "UART错误: 0x%08X\n", huart->ErrorCode);
+    SEGGER_RTT_printf(0, "UART ERROR: 0x%08X\r\n", huart->ErrorCode);
 #endif
-
+	
+	if (huart->ErrorCode & HAL_UART_ERROR_FE) 
+	{
+      __HAL_UART_CLEAR_FEFLAG(huart);
+#ifdef ERROR_LOG
+        SEGGER_RTT_printf(0, "UART FE Cleared!\r\n");
+#endif
+	}
+	if (huart->ErrorCode & HAL_UART_ERROR_ORE)
+	{
+		uint32_t tmp;
+        tmp = huart->Instance->SR;  // 先读 SR
+        tmp = huart->Instance->DR;  // 再读 DR
+        (void)tmp;  // 防止优化
+        __HAL_UART_CLEAR_OREFLAG(huart);  // 现在 ORE 才能被清除
+#ifdef ERROR_LOG
+        SEGGER_RTT_printf(0, "UART ORE Cleared!\r\n");
+#endif
+	}
+	
 }
 //该函数为虚函数，可以在子类中重新定义实现流程，也可以不实现（根据需求来）
 void SerialDevice::handleReceiveData(uint8_t byte)
